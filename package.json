@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "API for COVID 19 Cases in the Philippines",
   "main": "src/index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "scripts": {
     "test": "xo && nyc --reporter=html --reporter=text ava --verbose --timeout=1m",
     "test-no": "ava tests/*.js --verbose --timeout=1m",
