@@ -1,0 +1,22 @@
+# Logs
+*.log
+
+# NYX
+.nyc_output
+
+# eclipse lock configuration
+*.lock
+
+# compile documentation
+coverage
+
+# compile documentation
+.coveralls.yml
+
+# Dependency directory
+node_modules
+
+.editorconfig
+
+# Optional npm cache directory
+.npm
