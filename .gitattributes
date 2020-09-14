@@ -1,1 +1,4 @@
 *.html linguist-detectable=false
+*.xlsx linguist-detectable=false
+*.csv linguist-detectable=false
+*.pdf linguist-detectable=false

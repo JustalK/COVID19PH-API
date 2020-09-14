@@ -9,7 +9,6 @@ const drive = google.drive({version: 'v3', auth});
 
 module.exports = {
 	get_folder_ID: url => {
-		// https://drive.google.com/drive/folders/1AFS30Zrhe4PXEqJ8WGLRNx-WsXmTjmvG?usp=sharing
 		const matches = url.match(/(?<=folders\/).*(?=\?)/gi);
 		return matches[0];
 	},

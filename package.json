@@ -38,6 +38,7 @@
   },
   "homepage": "https://github.com/JustalK/COVID19PH-API#readme",
   "dependencies": {
+    "csv-parser": "^2.3.3",
     "dotenv": "^8.2.0",
     "follow-redirects": "^1.13.0",
     "googleapis": "^59.0.0",

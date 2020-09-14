@@ -1,6 +1,18 @@
 # Logs
 *.log
 
+#env
+env
+.env.*
+
+#secret
+secrets
+
+# Datas
+datas
+*.xlsx
+*.csv
+
 # NYX
 .nyc_output
 
