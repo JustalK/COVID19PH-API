@@ -27,7 +27,7 @@ module.exports = {
 			}).pipe(destination);
 		});
 	},
-	read_files_in_directory: async (folderId) => {
+	read_files_in_directory: async folderId => {
 		const files_in_directory = await drive.files.list({q: `'${folderId}' in parents`});
 		return files_in_directory.data.files;
 	}
