@@ -7,29 +7,28 @@ const scopes = ['https://www.googleapis.com/auth/drive'];
 const auth = new google.auth.JWT(credentials.client_email, null, credentials.private_key, scopes);
 const drive = google.drive({version: 'v3', auth});
 
-const downloadFile = function (fileId, file_destination) {
-	return new Promise(async (resolve, reject) => {
-		const destination = fs.createWriteStream(file_destination);
-		const drive_options = {fileId, alt: 'media'};
-		const drive_response = {responseType: 'stream'};
-		const drive_stream_file = await drive.files.get(drive_options, drive_response);
-		const {data} = drive_stream_file;
-		data.on('end', () => {
-			resolve();
-		}).on('error', error => {
-			console.log('Error during download', error);
-		}).pipe(destination);
-	});
-};
-
 module.exports = {
-	download_DOH_report: async () => {
-		// https://content.googleapis.com/drive/v2/files/1E65k-OumPSmsk-Wa33WIwHiWGUOLxRZh?key=AIzaSyDOsAb82j7FYmCsa_sJB3p3CPquqyppikg
-		// const response = await got('https://content.googleapis.com/drive/v2/files/1E65k-OumPSmsk-Wa33WIwHiWGUOLxRZh?key=' + process.env.GOOGLE_API_KEY);
-		// console.log(response.body);
-
-		const fileId = '1E65k-OumPSmsk-Wa33WIwHiWGUOLxRZh';
-		const file = await downloadFile(fileId, 'datas/DOH_source.pdf');
-		return DATAS_SOURCE;
+	get_folder_ID: url => {
+		// https://drive.google.com/drive/folders/1AFS30Zrhe4PXEqJ8WGLRNx-WsXmTjmvG?usp=sharing
+		const matches = url.match(/(?<=folders\/).*(?=\?)/gi);
+		return matches[0];
+	},
+	download_file: async (fileId, file_destination) => {
+		return new Promise(async (resolve, reject) => {
+			const destination = fs.createWriteStream(file_destination);
+			const drive_options = {fileId, alt: 'media'};
+			const drive_response = {responseType: 'stream'};
+			const drive_stream_file = await drive.files.get(drive_options, drive_response);
+			const {data} = drive_stream_file;
+			data.on('end', () => {
+				resolve(file_destination);
+			}).on('error', error => {
+				console.log('Error during download', error);
+			}).pipe(destination);
+		});
+	},
+	read_files_in_directory: async (folderId) => {
+		const files_in_directory = await drive.files.list({q: `'${folderId}' in parents`});
+		return files_in_directory.data.files;
 	}
 };
