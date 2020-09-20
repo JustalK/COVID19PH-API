@@ -48,6 +48,7 @@
     "mongoose": "^5.10.6",
     "pdf-parse": "^1.1.1",
     "pdf2json": "^1.2.0",
-    "restify": "^8.5.1"
+    "restify": "^8.5.1",
+    "restify-route": "0.0.6"
   }
 }
