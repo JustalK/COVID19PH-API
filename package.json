@@ -44,6 +44,8 @@
     "follow-redirects": "^1.13.0",
     "googleapis": "^59.0.0",
     "got": "^11.6.2",
+    "mongo-uri-builder": "^3.2.2",
+    "mongoose": "^5.10.6",
     "pdf-parse": "^1.1.1",
     "pdf2json": "^1.2.0",
     "restify": "^8.5.1"
