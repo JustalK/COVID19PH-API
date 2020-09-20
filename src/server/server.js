@@ -3,7 +3,8 @@ const restify = require('restify');
 const mongoose = require('mongoose');
 const mongo_uri_builder = require('mongo-uri-builder');
 
-const case_model = require('./routes/cases');
+const routes_cases = require('./routes/cases');
+const routes_crons = require('./routes/crons');
 
 const db_uri = process.env.DB_URI_DATA + process.env.DB_NAME;
 const split_uri = db_uri.split('/');
@@ -24,7 +25,8 @@ mongoose.connect(db_uri_data, { useNewUrlParser: true, useUnifiedTopology: true 
 const server_options = {name: process.env.API_NAME}
 const server = restify.createServer(server_options);
 
-case_model(server);
+routes_cases(server);
+routes_crons(server);
 
 server.listen(process.env.PORT, process.env.HOST, function() {
 	console.log('%s listening at %s', server.name, server.url);

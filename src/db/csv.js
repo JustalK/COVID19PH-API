@@ -8,7 +8,7 @@ module.exports = {
 			fs.createReadStream('datas/COVID_PH_CASE.csv')
 			.pipe(csv())
 			.on('data', function (row) {
-				//console.log(row)
+				console.log(row)
 				count++;
 			})
 			.on('end', function () {
