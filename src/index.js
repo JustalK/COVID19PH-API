@@ -1,8 +1,8 @@
 require('dotenv').config({path: './env/.env.' + process.env.NODE_ENV});
-const google = require('./google');
-const pdf = require('./pdf');
-const utils = require('./utils');
-const csv = require('./csv');
+const google = require('./db/google');
+const pdf = require('./db/pdf');
+const utils = require('./db/utils');
+const csv = require('./db/csv');
 
 module.exports = {
 	get_data: async () => {
