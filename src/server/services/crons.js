@@ -1,19 +1,21 @@
 const path = require('path');
 const filename = path.basename(__filename,'.js');
 const services_cases = require('../services/cases');
-const models_cases = require('../models/cases');
 
 const fs = require('fs');
 const csv = require('csv-parser')
+const cluster_limit = 10000;
 
 module.exports = {
 	create_cases: async () => {
 		return new Promise(async (resolve, reject) => {
+			let cases = [];
+			let cluster = [];
 			let count = 0;
 			fs.createReadStream('datas/COVID_PH_CASE.csv')
 			.pipe(csv())
 			.on('data', async row => {
-				const data = new models_cases({
+				const data = services_cases.create_model({
 					case_code: row.CaseCode,
 					age: row.Age,
 					sex: row.Sex,
@@ -28,11 +30,22 @@ module.exports = {
 					region: row.RegionRes,
 					city: row.CityMunRes
 				})
-				//console.log(data);
-				console.log(await services_cases.create(data));
+				cluster.push(data);
+				if(cluster.length>=cluster_limit) {
+					console.log(count);
+					cases.push(cluster);
+					cluster = [];
+				}
+				//await services_cases.create(data);
 				count++;
 			})
 			.on('end', function () {
+				cases.push(cluster);
+				cases.map(async x => {
+					console.log(x);
+					await services_cases.create_many(x);
+				})
+
 				console.log(count);
 				console.log('Data loaded')
 				resolve();

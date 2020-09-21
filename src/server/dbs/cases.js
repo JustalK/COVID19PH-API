@@ -3,11 +3,15 @@ const filename = path.basename(__filename,'.js');
 const model = require('../models/' + filename);
 
 const dbs = {
-	create: function (data) {
+	create: data => {
 		return model
 			.create(data);
 	},
-	getAll: function (find ,sort, limit) {
+	create_many: datas => {
+		return model
+			.insertMany(datas);
+	},
+	getAll: (find ,sort, limit) => {
 		return model
 			.find(find)
 			.sort(sort)
