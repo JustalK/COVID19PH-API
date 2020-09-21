@@ -13,7 +13,7 @@ module.exports = {
 	create_many: async data => {
 		return dbs.create_many(data);
 	},
-	get_all: async () => {
-		return dbs.getAll({});
+	get_all: async (find, sort, limit) => {
+		return dbs.getAll(find, sort, limit);
 	}
 }

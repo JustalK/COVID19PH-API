@@ -25,6 +25,8 @@ mongoose.connect(db_uri_data, { useNewUrlParser: true, useUnifiedTopology: true 
 const server_options = {name: process.env.API_NAME}
 const server = restify.createServer(server_options);
 
+server.use(restify.plugins.queryParser({mapParams: true}));
+
 routes_cases(server);
 routes_crons(server);
 
