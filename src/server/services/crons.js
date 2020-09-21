@@ -25,8 +25,8 @@ module.exports = {
 					date_recover: row.DateRecover,
 					date_died: row.DateDied,
 					health_status: row.HealthStatus,
-					quarantined: row.Quarantined,
-					pregnant: row.Pregnanttab,
+					quarantined: row.Quarantined === 'YES' ? true : false,
+					pregnant: row.Pregnanttab === 'YES' ? true : false,
 					region: row.RegionRes,
 					city: row.CityMunRes
 				})

@@ -11,7 +11,7 @@ const schema = new mongoose.Schema({
 	},
 	age : {
 		type : Number,
-		default: 0
+		default: -1
 	},
 	sex : {
 		type : String,

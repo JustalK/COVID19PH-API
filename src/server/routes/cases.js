@@ -8,17 +8,27 @@ function createRouter(server) {
     .use(server)
     .set('/cases', 'GET', async function (req, res, next) {
 		const limit = req.query.limit ? Number(req.query.limit) : Number(process.env.CASES_LIMIT_GETTER);
-		const upper_age = req.query.upper_age ? Number(req.query.upper_age) : null;
-		const lower_age = req.query.lower_age ? Number(req.query.lower_age) : null;
+		const age_upper = req.query.age_upper ? Number(req.query.age_upper) : null;
+		const age_lower = req.query.age_lower ? Number(req.query.age_lower) : null;
+		const sex = req.query.sex ? req.query.sex : null;
+		const pregnant = req.query.pregnant ? req.query.pregnant : null;
 
 		const filter = {}
 
-		if (upper_age) {
-			filter['age'] = {$lte: upper_age}
+		if (age_upper) {
+			filter['age'] = {$lte: age_upper}
 		}
 
-		if (lower_age) {
-			filter['age'] = {$gte: lower_age}
+		if (age_lower) {
+			filter['age'] = {$gte: age_lower}
+		}
+
+		if (sex) {
+			filter['sex'] = {$eq: sex}
+		}
+
+		if(pregnant !== null) {
+			filter['pregnant'] = (pregnant.toUpperCase() == 'TRUE');
 		}
 
 		const datas = await services.get_all(filter,null,limit);
