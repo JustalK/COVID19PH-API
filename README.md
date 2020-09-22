@@ -12,3 +12,9 @@
 ![Star the project](https://img.shields.io/github/stars/justalk/covid19ph-api?style=social)
 
 API for COVID 19 Cases in the Philippines
+
+### Features
+
+- **DOH data download:** Download the latest datas from DOH
+
+- **Powerfull API:** Complete API for the covid in Philippines
