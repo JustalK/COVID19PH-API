@@ -18,3 +18,10 @@ API for COVID 19 Cases in the Philippines
 - **DOH data download:** Download the latest datas from DOH
 
 - **Powerfull API:** Complete API for the covid in Philippines
+
+### How is it working
+
+1. Download the notice PDF from DOH
+2. Parse the file for finding the link of the google drive
+3. Download the csv files from the google drive
+4. Fill up the database used by the API
