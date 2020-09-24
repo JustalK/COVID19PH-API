@@ -11,27 +11,21 @@ function createRouter(server) {
 		const age_upper = req.query.age_upper ? Number(req.query.age_upper) : null;
 		const age_lower = req.query.age_lower ? Number(req.query.age_lower) : null;
 		const sex = req.query.sex ? req.query.sex : null;
-		const pregnant = req.query.pregnant ? req.query.pregnant : null;
+		const pregnant = req.query.pregnant ? req.query.pregnant == 'TRUE' : null;
+		const quarantined = req.query.quarantined ? req.query.quarantined == 'TRUE' : null;
+		const health = req.query.health ? req.query.health == 'TRUE' : null;
 
-		const filter = {}
+		let filters = [];
 
-		if (age_upper) {
-			filter['age'] = {$lte: age_upper}
-		}
+		filters.push(['age', age_upper, 'lower']);
+		filters.push(['age', age_lower, 'upper']);
+		filters.push(['sex', sex, 'equal']);
+		filters.push(['pregnant', pregnant, 'equal']);
+		filters.push(['quarantined', quarantined, 'equal']);
+		filters.push(['health_status', health, 'equal']);
 
-		if (age_lower) {
-			filter['age'] = {$gte: age_lower}
-		}
-
-		if (sex) {
-			filter['sex'] = {$eq: sex}
-		}
-
-		if(pregnant !== null) {
-			filter['pregnant'] = (pregnant.toUpperCase() == 'TRUE');
-		}
-
-		const datas = await services.get_all(filter,null,limit);
+		filters = filters.filter(param => param[1]);
+		const datas = await services.get_all(filters,null,limit);
 		res.send(200, datas);
     })
 }
