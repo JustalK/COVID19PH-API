@@ -12,6 +12,8 @@ function createRouter(server) {
 		const age_lower = req.query.age_lower ? Number(req.query.age_lower) : null;
 		const sex = req.query.sex ? req.query.sex : null;
 		const pregnant = req.query.pregnant ? req.query.pregnant == 'TRUE' : null;
+		const quarantined = req.query.quarantined ? req.query.quarantined == 'TRUE' : null;
+		const health = req.query.health ? req.query.health == 'TRUE' : null;
 
 		let filters = [];
 
@@ -19,6 +21,8 @@ function createRouter(server) {
 		filters.push(['age', age_lower, 'upper']);
 		filters.push(['sex', sex, 'equal']);
 		filters.push(['pregnant', pregnant, 'equal']);
+		filters.push(['quarantined', quarantined, 'equal']);
+		filters.push(['health_status', health, 'equal']);
 
 		filters = filters.filter(param => param[1]);
 		const datas = await services.get_all(filters,null,limit);
