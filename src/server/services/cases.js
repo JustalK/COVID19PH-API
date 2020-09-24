@@ -13,7 +13,21 @@ module.exports = {
 	create_many: async data => {
 		return dbs.create_many(data);
 	},
-	get_all: async (find, sort, limit) => {
+	get_all: async (filters, sort, limit) => {
+		const find = {};
+		filters.map(filter => {
+			if(filter[2] == 'lower') {
+				find[filter[0]] = {$gte: filter[1]};
+			}
+
+			if(filter[2] == 'upper') {
+				find[filter[0]] = {$lte: filter[1]};
+			}
+
+			if(filter[2] == 'equal') {
+				find[filter[0]] = {$eq: filter[1]};
+			}
+		})
 		return dbs.getAll(find, sort, limit);
 	}
 }
