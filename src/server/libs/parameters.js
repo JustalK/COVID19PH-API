@@ -43,11 +43,7 @@ module.exports = {
 	},
 	create_parameter: (filters, key, value, mongoose_filter) => {
 		const find = filters.find(filter => filter[0] == key && filter[1] != null && filter[2] == 'lower_upper');
-		if (find) {
-			return null;
-		}
-
-		filters.push([key, value, mongoose_filter]);
+		return find ? null : filters.push([key, value, mongoose_filter]);
 	},
 	create_mongoose_parameters: filter => {
 		switch (filter[2]) {

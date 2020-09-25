@@ -141,3 +141,21 @@ test('[STATIC] Testing the create_mongoose_parameters lower_upper', async t => {
 	t.is(param.age.$gte, 12);
 	t.is(param.age.$lte, 20);
 });
+
+test('[STATIC] Testing the create_parameter', async t => {
+	let filters = [];
+	t.is(filters.length, 0);
+	m.create_parameter(filters, 'sex', 'M', 'equal');
+	t.is(filters.length, 1);
+	t.is(filters[0][0], 'sex');
+	t.is(filters[0][1], 'M');
+	t.is(filters[0][2], 'equal');
+	m.create_parameter(filters, 'age', [0, 20], 'lower_upper');
+	t.is(filters.length, 2);
+	t.is(filters[1][0], 'age');
+	t.is(filters[1][1][0], 0);
+	t.is(filters[1][1][1], 20);
+	t.is(filters[1][2], 'lower_upper');
+	m.create_parameter(filters, 'age', 20, 'lower');
+	t.is(filters.length, 2);
+});
