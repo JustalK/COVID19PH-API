@@ -2,6 +2,7 @@ const routes = require('restify-route');
 const path = require('path');
 const filename = path.basename(__filename,'.js');
 const services = require('../services/' + filename);
+const parameters = require('../libs/parameters');
 
 function createRouter(server) {
   routes
@@ -29,7 +30,7 @@ function createRouter(server) {
 		filters.push(['quarantined', quarantined, 'equal']);
 		filters.push(['health_status', health, 'equal']);
 
-		filters = filters.filter(param => param[1]);
+		filters = filters.filter(parameters.is_valid_parameter);
 		const datas = await services.get_all(filters,null,limit);
 		res.send(200, datas);
     })

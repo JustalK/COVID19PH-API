@@ -1,5 +1,11 @@
 module.exports = {
-	create_mongoose_parameters: (filter) => {
+	check_parameters: () => {
+		return null;
+	},
+	is_valid_parameter: param => {
+		return param[1] && param.length == 3;
+	},
+	create_mongoose_parameters: filter => {
 		switch (filter[2]) {
 				case 'lower_upper':
 					return  {[filter[0]]: {$gte: filter[1][0], $lte: filter[1][0]}};
