@@ -8,6 +8,10 @@ const parameters = require('../libs/parameters');
 function createRouter(server) {
   routes
     .use(server)
+	.set('/cron/cases', 'GET', async function (req, res, next) {
+		await services.create_cases();
+		res.send(200, {});
+	})
     .set('/cases', 'GET', async function (req, res, next) {
 		// Check the existence and parse the parameters
 		const limit = parameters.check_limit_parameter(req.query.limit)
