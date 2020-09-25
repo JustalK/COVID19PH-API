@@ -2,7 +2,7 @@ const constants = require('../libs/consts');
 
 module.exports = {
 	check_limit_parameter: param => {
-		return param ? module.exports.check_number_parameter(req.query.limit, Number(process.env.CASES_LIMIT_GETTER)) : Number(process.env.CASES_LIMIT_GETTER)
+		return param ? module.exports.check_number_parameter(param, Number(process.env.CASES_LIMIT_GETTER)) : Number(process.env.CASES_LIMIT_GETTER)
 	},
 	check_number_parameter: (param, default_param = constants.no_parameter_found) => {
 		return module.exports.check_parameter(param, param => {
