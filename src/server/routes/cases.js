@@ -17,8 +17,13 @@ function createRouter(server) {
 
 		let filters = [];
 
-		filters.push(['age', age_upper, 'lower']);
-		filters.push(['age', age_lower, 'upper']);
+		if(age_lower && age_upper) {
+			filters.push(['age', [age_lower, age_upper], 'lower_upper']);
+		} else {
+			filters.push(['age', age_upper, 'lower']);
+			filters.push(['age', age_lower, 'upper']);
+		}
+
 		filters.push(['sex', sex, 'equal']);
 		filters.push(['pregnant', pregnant, 'equal']);
 		filters.push(['quarantined', quarantined, 'equal']);
