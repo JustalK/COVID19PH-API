@@ -11,7 +11,18 @@ module.exports = {
 	},
 	check_boolean_parameter: param => {
 		return module.exports.check_parameter(param, param => {
-			return param == 'TRUE' || param == 1;
+			param = param.toString();
+			const param_boolean_true = ['TRUE', '1'].find(boolean =>  boolean == param.toUpperCase())
+			if (param_boolean_true) {
+				return true;
+			}
+
+			const param_boolean_false = ['FALSE', '0'].find(boolean => boolean == param.toUpperCase())
+			if (param_boolean_false) {
+				return false;
+			}
+
+			return constants.no_parameter_found;
 		})
 	},
 	check_sex_parameter: param => {
@@ -21,8 +32,8 @@ module.exports = {
 		})
 	},
 	check_parameter: (param, fn) => {
-		const param_exist = param ? param : null;
-		if (!param_exist) {
+		const param_exist = param != null ? param : null;
+		if (param_exist === null) {
 			return constants.no_parameter_found;
 		}
 		return fn(param);
