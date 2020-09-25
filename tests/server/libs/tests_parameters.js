@@ -95,3 +95,22 @@ test('[STATIC] Testing the sex check parameter with a bad value', async t => {
 	const param_2 = m.check_sex_parameter('MF');
 	t.is(param_2, null);
 });
+
+test('[STATIC] Testing the is_valid_parameter', async t => {
+	const param = m.is_valid_parameter(['age', '0', ['eq']]);
+	t.is(param, true);
+	const param_2 = m.is_valid_parameter(['health', 'blabla bla bla', ['lte']]);
+	t.is(param_2, true);
+	const param_3 = m.is_valid_parameter(['health', [23, 15], ['lte']]);
+	t.is(param_3, true);
+});
+
+test('[STATIC] Testing the is_valid_parameter with bad value', async t => {
+	const param = m.is_valid_parameter(['age', null, ['eq']]);
+	t.is(param, false);
+});
+
+test('[STATIC] Testing the is_valid_parameter with not well formated array', async t => {
+	const param = m.is_valid_parameter(['age', '0']);
+	t.is(param, false);
+});

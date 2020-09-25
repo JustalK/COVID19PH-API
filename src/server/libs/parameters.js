@@ -39,7 +39,7 @@ module.exports = {
 		return fn(param);
 	},
 	is_valid_parameter: param => {
-		return param[1] && param.length == 3;
+		return param.length == 3 && param[1] !== null;
 	},
 	create_mongoose_parameters: filter => {
 		switch (filter[2]) {
