@@ -13,7 +13,7 @@ module.exports = dbs => ({
 	create_many: async data => {
 		return dbs.create_many(data);
 	},
-	get_all: async (filters, sort, limit) => {
+	get_all: async (filters, sort = null, limit = null) => {
 		const filter_mongoose = filters.map(parameters.create_mongoose_parameters);
 		const find = {$and: filter_mongoose};
 		return dbs.getAll(find, sort, limit);
