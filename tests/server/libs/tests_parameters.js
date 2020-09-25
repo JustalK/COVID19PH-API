@@ -78,3 +78,20 @@ test('[STATIC] Testing the boolean check parameter with a bad value', async t =>
 	const param_3 = m.check_boolean_parameter('656');
 	t.is(param_3, null);
 });
+
+test('[STATIC] Testing the sex check parameter with a M', async t => {
+	const param = m.check_sex_parameter('M');
+	t.is(param, 'M');
+});
+
+test('[STATIC] Testing the sex check parameter with a F', async t => {
+	const param = m.check_sex_parameter('F');
+	t.is(param, 'F');
+});
+
+test('[STATIC] Testing the sex check parameter with a bad value', async t => {
+	const param = m.check_sex_parameter('Z');
+	t.is(param, null);
+	const param_2 = m.check_sex_parameter('MF');
+	t.is(param_2, null);
+});
