@@ -114,3 +114,30 @@ test('[STATIC] Testing the is_valid_parameter with not well formated array', asy
 	const param = m.is_valid_parameter(['age', '0']);
 	t.is(param, false);
 });
+
+test('[STATIC] Testing the create_mongoose_parameters upper', async t => {
+	const param = m.create_mongoose_parameters(['age', 0, 'upper']);
+	t.is(param.age.$lte, 0);
+	const param_2 = m.create_mongoose_parameters(['ruby', 'test', 'upper']);
+	t.is(param_2.ruby.$lte, 'test');
+});
+
+test('[STATIC] Testing the create_mongoose_parameters lower', async t => {
+	const param = m.create_mongoose_parameters(['age', 0, 'lower']);
+	t.is(param.age.$gte, 0);
+	const param_2 = m.create_mongoose_parameters(['ruby', 'test', 'lower']);
+	t.is(param_2.ruby.$gte, 'test');
+});
+
+test('[STATIC] Testing the create_mongoose_parameters equal', async t => {
+	const param = m.create_mongoose_parameters(['age', 0, 'equal']);
+	t.is(param.age.$eq, 0);
+	const param_2 = m.create_mongoose_parameters(['ruby', 'test', 'equal']);
+	t.is(param_2.ruby.$eq, 'test');
+});
+
+test('[STATIC] Testing the create_mongoose_parameters lower_upper', async t => {
+	const param = m.create_mongoose_parameters(['age', [12, 20], 'lower_upper']);
+	t.is(param.age.$gte, 12);
+	t.is(param.age.$lte, 20);
+});
