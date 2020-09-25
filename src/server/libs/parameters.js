@@ -12,12 +12,12 @@ module.exports = {
 	check_boolean_parameter: param => {
 		return module.exports.check_parameter(param, param => {
 			param = param.toString();
-			const param_boolean_true = ['TRUE', '1'].find(boolean =>  boolean == param.toUpperCase())
+			const param_boolean_true = constants.TRUE_PARAMETERS.find(boolean =>  boolean == param.toUpperCase())
 			if (param_boolean_true) {
 				return true;
 			}
 
-			const param_boolean_false = ['FALSE', '0'].find(boolean => boolean == param.toUpperCase())
+			const param_boolean_false = constants.FALSE_PARAMETERS.find(boolean => boolean == param.toUpperCase())
 			if (param_boolean_false) {
 				return false;
 			}
@@ -27,7 +27,7 @@ module.exports = {
 	},
 	check_sex_parameter: param => {
 		return module.exports.check_parameter(param, param => {
-			const param_sex = ['M', 'F'].find(sex => sex == param)
+			const param_sex = constants.SEX_PARAMETERS.find(sex => sex == param)
 			return param_sex ? param_sex : constants.no_parameter_found;
 		})
 	},

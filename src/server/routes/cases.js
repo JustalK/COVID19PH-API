@@ -1,7 +1,8 @@
 const routes = require('restify-route');
 const path = require('path');
 const filename = path.basename(__filename,'.js');
-const services = require('../services/' + filename);
+const dbs = require('../dbs/' + filename);
+const services = require('../services/' + filename)(dbs);
 const parameters = require('../libs/parameters');
 
 function createRouter(server) {

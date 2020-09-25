@@ -1,4 +1,6 @@
 module.exports = {
 	no_parameter_found: null,
-	sex_parameters: ['M', 'F'],
+	SEX_PARAMETERS: ['M', 'F'],
+	TRUE_PARAMETERS: ['TRUE', '1'],
+	FALSE_PARAMETERS: ['FALSE', '0'],
 }
