@@ -9,12 +9,12 @@ function createRouter(server) {
     .use(server)
     .set('/cases', 'GET', async function (req, res, next) {
 		const limit = req.query.limit ? Number(req.query.limit) : Number(process.env.CASES_LIMIT_GETTER);
-		const age_upper = req.query.age_upper ? Number(req.query.age_upper) : null;
-		const age_lower = req.query.age_lower ? Number(req.query.age_lower) : null;
-		const sex = req.query.sex ? req.query.sex : null;
-		const pregnant = req.query.pregnant ? req.query.pregnant == 'TRUE' : null;
-		const quarantined = req.query.quarantined ? req.query.quarantined == 'TRUE' : null;
-		const health = req.query.health ? req.query.health == 'TRUE' : null;
+		const age_upper = parameters.check_number_parameter(req.query.age_upper);
+		const age_lower = parameters.check_number_parameter(req.query.age_lower);
+		const sex = parameters.check_sex_parameter(req.query.sex);
+		const pregnant = parameters.check_boolean_parameter(req.query.pregnant);
+		const quarantined = parameters.check_boolean_parameter(req.query.quarantined);
+		const health = parameters.check_boolean_parameter(req.query.health);
 
 		let filters = [];
 
