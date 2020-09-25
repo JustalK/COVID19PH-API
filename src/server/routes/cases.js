@@ -17,18 +17,13 @@ function createRouter(server) {
 		const health = parameters.check_boolean_parameter(req.query.health);
 
 		let filters = [];
-
-		if(age_lower && age_upper) {
-			filters.push(['age', [age_lower, age_upper], 'lower_upper']);
-		} else {
-			filters.push(['age', age_upper, 'lower']);
-			filters.push(['age', age_lower, 'upper']);
-		}
-
-		filters.push(['sex', sex, 'equal']);
-		filters.push(['pregnant', pregnant, 'equal']);
-		filters.push(['quarantined', quarantined, 'equal']);
-		filters.push(['health_status', health, 'equal']);
+		parameters.create_parameter(filters, 'age', [age_lower, age_upper], 'lower_upper');
+		parameters.create_parameter(filters, 'age', age_upper, 'lower');
+		parameters.create_parameter(filters, 'age', age_lower, 'upper');
+		parameters.create_parameter(filters, 'sex', sex, 'equal');
+		parameters.create_parameter(filters, 'pregnant', pregnant, 'equal');
+		parameters.create_parameter(filters, 'quarantined', quarantined, 'equal');
+		parameters.create_parameter(filters, 'health_status', health, 'equal');
 
 		filters = filters.filter(parameters.is_valid_parameter);
 		const datas = await services.get_all(filters,null,limit);
