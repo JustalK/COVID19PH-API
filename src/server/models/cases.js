@@ -46,10 +46,10 @@ const schema = new mongoose.Schema({
 		default: 'NO DATA'
 	},
 	quarantined : {
-		type : String
+		type : Boolean
 	},
 	pregnant : {
-		type : String
+		type : Boolean
 	},
 	region : {
 		type : String,
