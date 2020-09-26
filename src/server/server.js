@@ -1,6 +1,5 @@
 const restify = require('restify');
 
-
 module.exports = {
 	create_server: name => {
 		const server_options = {name: name}
