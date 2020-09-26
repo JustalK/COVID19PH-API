@@ -3,4 +3,4 @@ const server = require('./server');
 const database = require('./database');
 
 database.mongoose_connect();
-server.start();
+server.start(process.env.API_NAME, process.env.HOST, process.env.PORT);
