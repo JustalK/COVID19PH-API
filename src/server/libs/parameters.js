@@ -6,7 +6,7 @@ module.exports = {
 	},
 	check_number_parameter: (parameter, default_parameter = constants.no_parameter_found) => {
 		return module.exports.check_parameter(parameter, parameter => {
-			return Number.isNaN(parameter) ? default_parameter : Number(parameter);
+			return isNaN(parameter) ? default_parameter : Number(parameter);
 		});
 	},
 	check_boolean_parameter: parameter => {

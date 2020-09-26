@@ -10,6 +10,11 @@ test('[STATIC] Testing the limit check parameter with a number', t => {
 	t.is(limit_3, 1);
 });
 
+test('[STATIC] Testing the limit check parameter without an argument', t => {
+	const limit = m.check_limit_parameter(null);
+	t.is(limit, NaN);
+});
+
 test('[STATIC] Testing the number check parameter with a number', t => {
 	const number = m.check_number_parameter(3);
 	t.is(number, 3);
@@ -96,6 +101,11 @@ test('[STATIC] Testing the sex check parameter with a bad value', t => {
 	t.is(parameter_2, null);
 });
 
+test('[STATIC] Testing the check parameter with a null argument', t => {
+	const parameter = m.check_parameter(null, () => {});
+	t.is(parameter, null);
+});
+
 test('[STATIC] Testing the is_valid_parameter', t => {
 	const parameter = m.is_valid_parameter(['age', '0', ['eq']]);
 	t.is(parameter, true);
@@ -140,6 +150,11 @@ test('[STATIC] Testing the create_mongoose_parameters lower_upper', t => {
 	const parameter = m.create_mongoose_parameters(['age', [12, 20], 'lower_upper']);
 	t.is(parameter.age.$gte, 12);
 	t.is(parameter.age.$lte, 20);
+});
+
+test('[STATIC] Testing the create_mongoose_parameters with a type that does not exist', t => {
+	const parameter = m.create_mongoose_parameters(['age', 20, 'lsddsf']);
+	t.is(parameter.age.$eq, 20);
 });
 
 test('[STATIC] Testing the create_parameter', t => {
