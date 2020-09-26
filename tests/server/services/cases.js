@@ -62,3 +62,75 @@ test('[STATIC] Testing the services get_all dbs', async t => {
 	t.is(prepare_query[0].$and[0].age.$gte, 20);
 	t.is(prepare_query[0].$and[1].sex.$eq, 'M');
 });
+
+test('[STATIC] Testing the cluster_create_many', async t => {
+	const date = new Date();
+	const clusters = await m.cluster_create_many([[{
+		case_code: 'CL1C123C',
+		age: 22,
+		sex: 'M',
+		date_start_case: date,
+		date_result_release: date,
+		date_result_positive: date,
+		date_recover: date,
+		date_died: date,
+		health_status: 'DIED',
+		quarantined: false,
+		pregnant: false,
+		region: 'RIZAL',
+		city: 'ANTIPOLO'
+	}],[{
+		case_code: 'CL2C123C',
+		age: 22,
+		sex: 'M',
+		date_start_case: date,
+		date_result_release: date,
+		date_result_positive: date,
+		date_recover: date,
+		date_died: date,
+		health_status: 'DIED',
+		quarantined: false,
+		pregnant: false,
+		region: 'RIZAL',
+		city: 'ANTIPOLO'
+	}]]);
+	t.is(clusters.length, 2);
+	t.is(clusters[0][0].case_code, 'CL1C123C');
+	t.is(clusters[1][0].case_code, 'CL2C123C');
+})
+
+test('[STATIC] Testing the create_cluster', async t => {
+	let clusters = m.create_cluster([], {case_code: 'JSDJ65461'}, 2);
+	t.is(clusters.length, 1);
+	t.is(clusters[0].length, 1);
+	t.is(clusters[0][0].case_code, 'JSDJ65461');
+	clusters = m.create_cluster(clusters, {case_code: 'JSDDSFKL546'}, 2);
+	t.is(clusters.length, 1);
+	t.is(clusters[0].length, 2);
+	t.is(clusters[0][0].case_code, 'JSDJ65461');
+	t.is(clusters[0][1].case_code, 'JSDDSFKL546');
+	clusters = m.create_cluster(clusters, {case_code: 'SDDVD56465'}, 2);
+	t.is(clusters.length, 2);
+	t.is(clusters[0].length, 2);
+	t.is(clusters[1].length, 1);
+	t.is(clusters[0][0].case_code, 'JSDJ65461');
+	t.is(clusters[0][1].case_code, 'JSDDSFKL546');
+	t.is(clusters[1][0].case_code, 'SDDVD56465');
+})
+
+test('[STATIC] Testing the create_cluster with error on first parameter', async t => {
+	let clusters = m.create_cluster(null, {case_code: 'JSDJ65461'});
+	t.is(clusters, null);
+})
+
+test('[STATIC] Testing the create_cluster with error on second parameter', async t => {
+	let clusters = m.create_cluster([], null);
+	t.is(clusters, null);
+})
+
+test('[STATIC] Testing the create_cluster with first parameter not array', async t => {
+	let clusters = m.create_cluster('aaa', {case_code: 'JS51651'});
+	t.is(clusters.length, 1);
+	t.is(clusters[0].length, 1);
+	t.is(clusters[0][0].case_code, 'JS51651');
+})

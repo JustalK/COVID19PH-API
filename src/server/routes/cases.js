@@ -10,7 +10,7 @@ function createRouter(server) {
     .use(server)
 	.set('/cron/cases', 'GET', async function (req, res, next) {
 		await services.create_cases();
-		res.send(200, {});
+		res.send(constants.SUCCESS_CODE, {});
 	})
     .set('/cases', 'GET', async function (req, res, next) {
 		// Check the existence and parse the parameters
@@ -35,7 +35,7 @@ function createRouter(server) {
 		// Filter the filters for keeping only those valid
 		filters = filters.filter(parameters.is_valid_parameter);
 		const datas = await services.get_all(filters,null,limit);
-		res.send(200, datas);
+		res.send(constants.SUCCESS_CODE, datas);
     })
 }
 
