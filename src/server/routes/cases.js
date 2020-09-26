@@ -4,6 +4,7 @@ const filename = path.basename(__filename,'.js');
 const dbs = require('../dbs/' + filename);
 const services = require('../services/' + filename)(dbs);
 const parameters = require('../libs/parameters');
+const constants = require('../libs/consts');
 
 function createRouter(server) {
   routes

@@ -34,7 +34,7 @@ module.exports = dbs => ({
 	create_many: async data => {
 		return dbs.create_many(data);
 	},
-	create_cluster: (clusters, a_case, size_cluster = constants.CLUSTER_LIMIT) => {
+	create_cluster: (clusters, a_case, size_cluster) => {
 		if(!a_case || !clusters) {
 			return null;
 		}
@@ -70,7 +70,7 @@ module.exports = dbs => ({
 			.on('data', row => {
 				const data = module.exports(dbs).create_data_from_row(row);
 				const a_case = module.exports(dbs).create_model(data);
-				clusters = module.exports(dbs).create_cluster(clusters, a_case);
+				clusters = module.exports(dbs).create_cluster(clusters, a_case, constants.CLUSTER_LIMIT);
 				count++;
 			})
 			.on('end', async () => {
