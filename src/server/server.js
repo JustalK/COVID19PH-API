@@ -2,7 +2,7 @@ const restify = require('restify');
 
 module.exports = {
 	create_server: name => {
-		const server_options = {name: name}
+		const server_options = {name};
 		const server = restify.createServer(server_options);
 		server.use(restify.plugins.queryParser({mapParams: true}));
 		return server;
@@ -12,14 +12,14 @@ module.exports = {
 		route(server);
 	},
 	start: async (name, host, port) => {
-		return new Promise(async (resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			const server = module.exports.create_server(name);
 			module.exports.adding_route('cases', server);
 
-			server.listen(port, host, function() {
+			server.listen(port, host, () => {
 				console.log('%s listening at %s', server.name, server.url);
 				resolve(true);
 			});
-		})
+		});
 	}
-}
+};

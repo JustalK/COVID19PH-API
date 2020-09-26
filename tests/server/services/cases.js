@@ -9,7 +9,7 @@ const dbs = {
 	getAll: (find, sort, limit) => {
 		return [find, sort, limit];
 	}
-}
+};
 const m = require('../../../src/server/services/cases')(dbs);
 
 test('[STATIC] Testing the services create model with perfect data', async t => {
@@ -45,13 +45,13 @@ test('[STATIC] Testing the services create model with perfect data', async t => 
 });
 
 test('[STATIC] Testing the services create dbs', async t => {
-	const data = {case_code: 'CC123C'}
+	const data = {case_code: 'CC123C'};
 	const a_case = await m.create(data);
 	t.is(a_case.case_code, 'CC123C');
 });
 
 test('[STATIC] Testing the services create many dbs', async t => {
-	const data = [{case_code: 'CC123C'},{case_code: 'CC1895C'}]
+	const data = [{case_code: 'CC123C'}, {case_code: 'CC1895C'}];
 	const many_cases = await m.create_many(data);
 	t.is(many_cases[0].case_code, 'CC123C');
 	t.is(many_cases[1].case_code, 'CC1895C');
@@ -79,7 +79,7 @@ test('[STATIC] Testing the cluster_create_many', async t => {
 		pregnant: false,
 		region: 'RIZAL',
 		city: 'ANTIPOLO'
-	}],[{
+	}], [{
 		case_code: 'CL2C123C',
 		age: 22,
 		sex: 'M',
@@ -97,9 +97,9 @@ test('[STATIC] Testing the cluster_create_many', async t => {
 	t.is(clusters.length, 2);
 	t.is(clusters[0][0].case_code, 'CL1C123C');
 	t.is(clusters[1][0].case_code, 'CL2C123C');
-})
+});
 
-test('[STATIC] Testing the create_cluster', async t => {
+test('[STATIC] Testing the create_cluster', t => {
 	let clusters = m.create_cluster([], {case_code: 'JSDJ65461'}, 2);
 	t.is(clusters.length, 1);
 	t.is(clusters[0].length, 1);
@@ -116,24 +116,24 @@ test('[STATIC] Testing the create_cluster', async t => {
 	t.is(clusters[0][0].case_code, 'JSDJ65461');
 	t.is(clusters[0][1].case_code, 'JSDDSFKL546');
 	t.is(clusters[1][0].case_code, 'SDDVD56465');
-})
+});
 
-test('[STATIC] Testing the create_cluster with error on first parameter', async t => {
-	let clusters = m.create_cluster(null, {case_code: 'JSDJ65461'});
+test('[STATIC] Testing the create_cluster with error on first parameter', t => {
+	const clusters = m.create_cluster(null, {case_code: 'JSDJ65461'});
 	t.is(clusters, null);
-})
+});
 
-test('[STATIC] Testing the create_cluster with error on second parameter', async t => {
-	let clusters = m.create_cluster([], null);
+test('[STATIC] Testing the create_cluster with error on second parameter', t => {
+	const clusters = m.create_cluster([], null);
 	t.is(clusters, null);
-})
+});
 
-test('[STATIC] Testing the create_cluster with first parameter not array', async t => {
-	let clusters = m.create_cluster('aaa', {case_code: 'JS51651'});
+test('[STATIC] Testing the create_cluster with first parameter not array', t => {
+	const clusters = m.create_cluster('aaa', {case_code: 'JS51651'});
 	t.is(clusters.length, 1);
 	t.is(clusters[0].length, 1);
 	t.is(clusters[0][0].case_code, 'JS51651');
-})
+});
 
 test('[STATIC] Testing the create_data_from_row', async t => {
 	const date = new Date();
@@ -166,7 +166,7 @@ test('[STATIC] Testing the create_data_from_row', async t => {
 	t.is(data.pregnant, false);
 	t.is(data.region, 'RIZAL');
 	t.is(data.city, 'ANTIPOLO');
-})
+});
 
 test('[STATIC] Testing the create_cases', async t => {
 	const clusters = await m.create_cases('tests/datas/TEST_COVID19.csv');
@@ -181,4 +181,4 @@ test('[STATIC] Testing the create_cases', async t => {
 	t.is(clusters.first_clusters[2].case_code, 'SD6555');
 	t.is(clusters.first_clusters[2].age, 18);
 	t.is(clusters.first_clusters[2].sex, 'F');
-})
+});

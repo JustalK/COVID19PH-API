@@ -1,11 +1,11 @@
 const path = require('path');
-const filename = path.basename(__filename,'.js');
-const models_cases = require('../models/cases');
+const filename = path.basename(__filename, '.js');
+const Models_cases = require('../models/cases');
 const parameters = require('../libs/parameters');
 const constants = require('../libs/consts');
 
 const fs = require('fs');
-const csv = require('csv-parser')
+const csv = require('csv-parser');
 
 module.exports = dbs => ({
 	create_data_from_row: row => {
@@ -19,14 +19,14 @@ module.exports = dbs => ({
 			date_recover: row.DateRecover,
 			date_died: row.DateDied,
 			health_status: row.HealthStatus,
-			quarantined: row.Quarantined === 'YES' ? true : false,
-			pregnant: row.Pregnanttab === 'YES' ? true : false,
+			quarantined: row.Quarantined === 'YES',
+			pregnant: row.Pregnanttab === 'YES',
 			region: row.RegionRes,
 			city: row.CityMunRes
-		}
+		};
 	},
 	create_model: data => {
-		return new models_cases(data);
+		return new Models_cases(data);
 	},
 	create: async data => {
 		return dbs.create(data);
@@ -35,11 +35,11 @@ module.exports = dbs => ({
 		return dbs.create_many(data);
 	},
 	create_cluster: (clusters, a_case, size_cluster) => {
-		if(!a_case || !clusters) {
+		if (!a_case || !clusters) {
 			return null;
 		}
 
-		if (!Array.isArray(clusters) || clusters.length == 0) {
+		if (!Array.isArray(clusters) || clusters.length === 0) {
 			clusters = [[]];
 		}
 
@@ -51,6 +51,7 @@ module.exports = dbs => ({
 		} else {
 			clusters[last_cluster_index].push(a_case);
 		}
+
 		return clusters;
 	},
 	cluster_create_many: async clusters => {
@@ -62,21 +63,21 @@ module.exports = dbs => ({
 		return dbs.getAll(find, sort, limit);
 	},
 	create_cases: async csv_path => {
-		return new Promise(async (resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			let clusters = [];
 			let count = 0;
 			fs.createReadStream(csv_path)
-			.pipe(csv())
-			.on('data', row => {
-				const data = module.exports(dbs).create_data_from_row(row);
-				const a_case = module.exports(dbs).create_model(data);
-				clusters = module.exports(dbs).create_cluster(clusters, a_case, constants.CLUSTER_LIMIT);
-				count++;
-			})
-			.on('end', async () => {
-				await module.exports(dbs).cluster_create_many(clusters);
-				resolve({number_clusters: clusters.length, number_cases: count, first_clusters: clusters[0]});
-			})
-		})
+				.pipe(csv())
+				.on('data', row => {
+					const data = module.exports(dbs).create_data_from_row(row);
+					const a_case = module.exports(dbs).create_model(data);
+					clusters = module.exports(dbs).create_cluster(clusters, a_case, constants.CLUSTER_LIMIT);
+					count++;
+				})
+				.on('end', async () => {
+					await module.exports(dbs).cluster_create_many(clusters);
+					resolve({number_clusters: clusters.length, number_cases: count, first_clusters: clusters[0]});
+				});
+		});
 	}
-})
+});

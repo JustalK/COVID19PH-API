@@ -5,4 +5,4 @@ module.exports = {
 	FALSE_PARAMETERS: ['FALSE', '0'],
 	SUCCESS_CODE: 200,
 	CLUSTER_LIMIT: 10000
-}
+};

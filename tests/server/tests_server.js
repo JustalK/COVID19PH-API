@@ -1,7 +1,7 @@
 const test = require('ava');
 const m = require('../../src/server/server');
 
-test('[STATIC] Testing create_server with correct value', async t => {
+test('[STATIC] Testing create_server with correct value', t => {
 	const server = m.create_server('my_api');
 
 	t.is(typeof server, 'object');
@@ -9,14 +9,14 @@ test('[STATIC] Testing create_server with correct value', async t => {
 	t.not(server.server, undefined);
 });
 
-test('[STATIC] Checking create_server does not have any routes', async t => {
+test('[STATIC] Checking create_server does not have any routes', t => {
 	const server = m.create_server('my_api');
 
 	const routes = server.router._registry._routes;
 	t.is(Object.keys(routes).length, 0);
 });
 
-test('[STATIC] Testing adding_route with cases and correct value', async t => {
+test('[STATIC] Testing adding_route with cases and correct value', t => {
 	const server = m.create_server('my_api');
 	m.adding_route('cases', server);
 

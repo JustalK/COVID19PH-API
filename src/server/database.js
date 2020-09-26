@@ -3,8 +3,8 @@ const mongo_uri_builder = require('mongo-uri-builder');
 
 module.exports = {
 	parse_db_uri: (db_name, db_uri, db_username, db_password) => {
-		db_uri = db_uri + db_name;
-		split_uri = db_uri.split('/');
+		db_uri += db_name;
+		const split_uri = db_uri.split('/');
 
 		const db_data = {};
 		db_data.db = split_uri[3];
@@ -30,4 +30,4 @@ module.exports = {
 
 		mongoose.connect(db_uri_data, {useNewUrlParser: true, useUnifiedTopology: true});
 	}
-}
+};

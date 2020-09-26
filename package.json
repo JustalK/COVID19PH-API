@@ -8,7 +8,7 @@
   },
   "scripts": {
     "server": "node src/server/index",
-    "test": "cross-env NODE_ENV=production xo && nyc --reporter=html --reporter=text ava --verbose --timeout=1m",
+    "test": "cross-env NODE_ENV=production xo --fix && nyc --reporter=html --reporter=text ava --verbose --timeout=1m",
     "test-no": "cross-env NODE_ENV=development ava tests/*.js tests/*/*.js tests/*/*/*.js --verbose --timeout=1m",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
