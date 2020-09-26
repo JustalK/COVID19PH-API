@@ -61,10 +61,10 @@ module.exports = dbs => ({
 		const find = {$and: filter_mongoose};
 		return dbs.getAll(find, sort, limit);
 	},
-	create_cases: async () => {
+	create_cases: async csv_path => {
 		return new Promise(async (resolve, reject) => {
 			let clusters = [];
-			fs.createReadStream('datas/COVID_PH_CASE.csv')
+			fs.createReadStream(csv_path)
 			.pipe(csv())
 			.on('data', row => {
 				const data = module.exports(dbs).create_data_from_row(row);

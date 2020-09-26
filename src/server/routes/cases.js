@@ -9,7 +9,7 @@ function createRouter(server) {
   routes
     .use(server)
 	.set('/cron/cases', 'GET', async function (req, res, next) {
-		await services.create_cases();
+		await services.create_cases('datas/COVID_PH_CASE.csv');
 		res.send(constants.SUCCESS_CODE, {});
 	})
     .set('/cases', 'GET', async function (req, res, next) {
