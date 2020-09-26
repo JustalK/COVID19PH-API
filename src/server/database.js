@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const mongo_uri_builder = require('mongo-uri-builder');
 
 module.exports = {
-	parse_db_uri: () => {
-		db_uri = process.env.DB_URI_DATA + process.env.DB_NAME;
+	parse_db_uri: (db_name, db_uri, db_username, db_password) => {
+		db_uri = db_uri + db_name;
 		split_uri = db_uri.split('/');
 
 		const db_data = {};
 		db_data.db = split_uri[3];
 		db_data.host = split_uri[2].split(':')[0];
 		db_data.port = split_uri[2].split(':')[1];
-		db_data.username = process.env.DB_USER_DATA;
-		db_data.password = process.env.DB_PASS_DATA;
+		db_data.username = db_username;
+		db_data.password = db_password;
 
 		return db_data;
 	},
@@ -24,8 +24,8 @@ module.exports = {
 			database: db_data.db
 		});
 	},
-	mongoose_connect: () => {
-		const db_data = module.exports.parse_db_uri();
+	mongoose_connect: (db_name, db_uri, db_username, db_password) => {
+		const db_data = module.exports.parse_db_uri(db_name, db_uri, db_username, db_password);
 		const db_uri_data = module.exports.create_mongo_uri(db_data);
 
 		mongoose.connect(db_uri_data, {useNewUrlParser: true, useUnifiedTopology: true});
