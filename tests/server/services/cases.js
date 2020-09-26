@@ -135,6 +135,39 @@ test('[STATIC] Testing the create_cluster with first parameter not array', async
 	t.is(clusters[0][0].case_code, 'JS51651');
 })
 
+test('[STATIC] Testing the create_data_from_row', async t => {
+	const date = new Date();
+	const row = {
+		CaseCode: 'CC123C',
+		Age: 22,
+		Sex: 'MALE',
+		DateSpecimen: date,
+		DateResultRelease: date,
+		DateRepConf: date,
+		DateRecover: date,
+		DateDied: date,
+		HealthStatus: 'DIED',
+		Quarantined: false,
+		Pregnanttab: false,
+		RegionRes: 'RIZAL',
+		CityMunRes: 'ANTIPOLO'
+	};
+	const data = await m.create_data_from_row(row);
+	t.is(data.case_code, 'CC123C');
+	t.is(data.age, 22);
+	t.is(data.sex, 'M');
+	t.is(data.date_start_case, date);
+	t.is(data.date_result_release, date);
+	t.is(data.date_result_positive, date);
+	t.is(data.date_recover, date);
+	t.is(data.date_died, date);
+	t.is(data.health_status, 'DIED');
+	t.is(data.quarantined, false);
+	t.is(data.pregnant, false);
+	t.is(data.region, 'RIZAL');
+	t.is(data.city, 'ANTIPOLO');
+})
+
 test('[STATIC] Testing the create_cases', async t => {
 	const clusters = await m.create_cases('tests/datas/TEST_COVID19.csv');
 	t.is(clusters.number_clusters, 1);
