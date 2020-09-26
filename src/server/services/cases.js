@@ -64,16 +64,18 @@ module.exports = dbs => ({
 	create_cases: async csv_path => {
 		return new Promise(async (resolve, reject) => {
 			let clusters = [];
+			let count = 0;
 			fs.createReadStream(csv_path)
 			.pipe(csv())
 			.on('data', row => {
 				const data = module.exports(dbs).create_data_from_row(row);
 				const a_case = module.exports(dbs).create_model(data);
 				clusters = module.exports(dbs).create_cluster(clusters, a_case);
+				count++;
 			})
 			.on('end', async () => {
 				await module.exports(dbs).cluster_create_many(clusters);
-				resolve();
+				resolve({number_clusters: clusters.length, number_cases: count, first_clusters: clusters[0]});
 			})
 		})
 	}

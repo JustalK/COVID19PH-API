@@ -134,3 +134,18 @@ test('[STATIC] Testing the create_cluster with first parameter not array', async
 	t.is(clusters[0].length, 1);
 	t.is(clusters[0][0].case_code, 'JS51651');
 })
+
+test('[STATIC] Testing the create_cases', async t => {
+	const clusters = await m.create_cases('tests/datas/TEST_COVID19.csv');
+	t.is(clusters.number_clusters, 1);
+	t.is(clusters.number_cases, 3);
+	t.is(clusters.first_clusters[0].case_code, 'VFDV6655');
+	t.is(clusters.first_clusters[0].age, 22);
+	t.is(clusters.first_clusters[0].sex, 'M');
+	t.is(clusters.first_clusters[1].case_code, 'VF54564');
+	t.is(clusters.first_clusters[1].age, 23);
+	t.is(clusters.first_clusters[1].sex, 'M');
+	t.is(clusters.first_clusters[2].case_code, 'SD6555');
+	t.is(clusters.first_clusters[2].age, 18);
+	t.is(clusters.first_clusters[2].sex, 'F');
+})
