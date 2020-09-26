@@ -11,12 +11,15 @@ module.exports = {
 		const route = require('./routes/' + filename_routes);
 		route(server);
 	},
-	start: (name, host, port) => {
-		const server = module.exports.create_server(name);
-		module.exports.adding_route('cases', server);
+	start: async (name, host, port) => {
+		return new Promise(async (resolve, reject) => {
+			const server = module.exports.create_server(name);
+			module.exports.adding_route('cases', server);
 
-		server.listen(port, host, function() {
-			console.log('%s listening at %s', server.name, server.url);
-		});
+			server.listen(port, host, function() {
+				console.log('%s listening at %s', server.name, server.url);
+				resolve(true);
+			});
+		})
 	}
 }
