@@ -18,7 +18,7 @@ module.exports = dbs => ({
 			date_result_positive: row.DateRepConf,
 			date_recover: row.DateRecover,
 			date_died: row.DateDied,
-			health_status: row.HealthStatus,
+			status: row.HealthStatus,
 			quarantined: row.Quarantined === 'YES',
 			pregnant: row.Pregnanttab === 'YES',
 			region: row.RegionRes,

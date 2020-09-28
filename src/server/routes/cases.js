@@ -18,20 +18,22 @@ function createRouter(server) {
 			const limit = parameters.check_limit_parameter(request.query.limit);
 			const age_upper = parameters.check_number_parameter(request.query.age_upper);
 			const age_lower = parameters.check_number_parameter(request.query.age_lower);
+			const age = parameters.check_number_parameter(request.query.age);
 			const sex = parameters.check_sex_parameter(request.query.sex);
 			const pregnant = parameters.check_boolean_parameter(request.query.pregnant);
 			const quarantined = parameters.check_boolean_parameter(request.query.quarantined);
-			const health = parameters.check_boolean_parameter(request.query.health);
+			const status = parameters.check_boolean_parameter(request.query.status);
 
 			// Create the filters for every parameter available
 			let filters = [];
 			parameters.create_parameter(filters, 'age', [age_lower, age_upper], 'lower_upper');
 			parameters.create_parameter(filters, 'age', age_upper, 'lower');
 			parameters.create_parameter(filters, 'age', age_lower, 'upper');
+			parameters.create_parameter(filters, 'age', age, 'equal');
 			parameters.create_parameter(filters, 'sex', sex, 'equal');
 			parameters.create_parameter(filters, 'pregnant', pregnant, 'equal');
 			parameters.create_parameter(filters, 'quarantined', quarantined, 'equal');
-			parameters.create_parameter(filters, 'health_status', health, 'equal');
+			parameters.create_parameter(filters, 'status', health, 'equal');
 
 			// Filter the filters for keeping only those valid
 			filters = filters.filter(parameters.is_valid_parameter);
@@ -41,7 +43,15 @@ function createRouter(server) {
 		.set('/cases/cities/available', 'GET', async (request, response, next) => {
 			const datas = await services.get_distinct('city');
 			response.send(constants.SUCCESS_CODE, datas);
-		});
+		})
+		.set('/cases/regions/available', 'GET', async (request, response, next) => {
+			const datas = await services.get_distinct('region');
+			response.send(constants.SUCCESS_CODE, datas);
+		})
+		.set('/cases/status/available', 'GET', async (request, response, next) => {
+			const datas = await services.get_distinct('status');
+			response.send(constants.SUCCESS_CODE, datas);
+		})
 }
 
 module.exports = createRouter;

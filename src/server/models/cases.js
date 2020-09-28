@@ -39,7 +39,7 @@ const schema = new mongoose.Schema({
 		type: Date,
 		default: null
 	},
-	health_status: {
+	status: {
 		type: String,
 		trim: true,
 		uppercase: true,
