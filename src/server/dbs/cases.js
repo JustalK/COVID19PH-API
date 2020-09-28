@@ -11,6 +11,10 @@ const dbs = {
 		return model
 		.insertMany(datas);
 	},
+	remove_many: (find) => {
+		return model
+		.deleteMany(find);
+	},
 	get_all: (find, sort, limit) => {
 		return model
 		.find(find)

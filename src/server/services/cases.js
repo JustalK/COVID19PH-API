@@ -66,6 +66,9 @@ module.exports = dbs => ({
 		const result = await dbs.get_distinct(field);
 		return result[0].rsl;
 	},
+	remove_all_cases: async () => {
+		return dbs.remove_many({});
+	},
 	create_cases: async csv_path => {
 		return new Promise((resolve, reject) => {
 			let clusters = [];

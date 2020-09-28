@@ -31,8 +31,18 @@ module.exports = {
 			return parameter_sex ? parameter_sex : constants.no_parameter_found;
 		});
 	},
+	check_enum_parameter: (parameter, enum_parameters, errors) => {
+		return module.exports.check_parameter(parameter, parameter => {
+			const parameter_enum = enum_parameters.find(value => value === parameter);
+			if(parameter_enum === undefined) {
+				errors[parameter] = 'This parameter does not exist.';
+			}
+
+			return parameter_enum ? parameter_enum : constants.no_parameter_found;
+		});
+	},
 	check_parameter: (parameter, fn) => {
-		const parameter_exist = parameter === null ? null : parameter;
+		const parameter_exist = parameter === undefined || parameter === null ? null : parameter;
 		if (parameter_exist === null) {
 			return constants.no_parameter_found;
 		}
