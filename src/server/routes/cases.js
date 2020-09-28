@@ -37,6 +37,10 @@ function createRouter(server) {
 			filters = filters.filter(parameters.is_valid_parameter);
 			const datas = await services.get_all(filters, null, limit);
 			response.send(constants.SUCCESS_CODE, datas);
+		})
+		.set('/cases/cities/available', 'GET', async (request, response, next) => {
+			const datas = await services.get_distinct('city');
+			response.send(constants.SUCCESS_CODE, datas);
 		});
 }
 

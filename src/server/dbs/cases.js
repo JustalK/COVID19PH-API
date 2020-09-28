@@ -5,17 +5,32 @@ const model = require('../models/' + filename);
 const dbs = {
 	create: data => {
 		return model
-			.create(data);
+		.create(data);
 	},
 	create_many: datas => {
 		return model
-			.insertMany(datas);
+		.insertMany(datas);
 	},
-	getAll: (find, sort, limit) => {
+	get_all: (find, sort, limit) => {
 		return model
-			.find(find)
-			.sort(sort)
-			.limit(limit);
+		.find(find)
+		.sort(sort)
+		.limit(limit);
+	},
+	get_distinct: (field) => {
+		return model.aggregate([
+			{
+				$group: {
+					_id: '$' + field
+				}
+			},
+			{
+				$group: {
+					_id: 'RESULT',
+					rsl: { $push : "$_id" }
+				}
+			}
+		])
 	}
 };
 

@@ -1,6 +1,6 @@
 const path = require('path');
 const filename = path.basename(__filename, '.js');
-const Models_cases = require('../models/cases');
+const Model = require('../models/' + filename);
 const parameters = require('../libs/parameters');
 const constants = require('../libs/consts');
 
@@ -26,7 +26,7 @@ module.exports = dbs => ({
 		};
 	},
 	create_model: data => {
-		return new Models_cases(data);
+		return new Model(data);
 	},
 	create: async data => {
 		return dbs.create(data);
@@ -60,7 +60,11 @@ module.exports = dbs => ({
 	get_all: async (filters, sort = null, limit = null) => {
 		const filter_mongoose = filters.map(parameters.create_mongoose_parameters);
 		const find = {$and: filter_mongoose};
-		return dbs.getAll(find, sort, limit);
+		return dbs.get_all(find, sort, limit);
+	},
+	get_distinct: async (field) => {
+		const result = await dbs.get_distinct(field);
+		return result[0].rsl;
 	},
 	create_cases: async csv_path => {
 		return new Promise((resolve, reject) => {
