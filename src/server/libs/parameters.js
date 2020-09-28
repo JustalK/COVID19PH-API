@@ -35,7 +35,7 @@ module.exports = {
 		return module.exports.check_parameter(parameter, parameter => {
 			const parameter_enum = enum_parameters.find(value => value === parameter);
 			if(parameter_enum === undefined) {
-				errors[parameter] = 'This parameter does not exist.';
+				errors[parameter] = 'This parameter does not exist. The only possible values are : ' + enum_parameters.join(', ');
 			}
 
 			return parameter_enum ? parameter_enum : constants.no_parameter_found;
@@ -50,7 +50,15 @@ module.exports = {
 		return fn(parameter);
 	},
 	is_valid_parameter: parameter => {
-		return parameter.length === 3 && parameter[1] !== null;
+		if (parameter.length !== 3) {
+			return false;
+		}
+
+		if (parameter[2] === 'lower_upper') {
+			return parameter[1][0] !== null && parameter[1][1] !== null
+		}
+
+		return parameter[1] !== null;
 	},
 	create_parameter: (filters, key, value, mongoose_filter) => {
 		const find = filters.find(filter => filter[0] === key && filter[1] !== null && filter[2] === 'lower_upper');

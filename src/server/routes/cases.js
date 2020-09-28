@@ -25,6 +25,9 @@ function createRouter(server) {
 			const pregnant = parameters.check_boolean_parameter(request.query.pregnant);
 			const quarantined = parameters.check_boolean_parameter(request.query.quarantined);
 			const status = parameters.check_enum_parameter(request.query.status, await services.get_distinct('status'), errors);
+			const city = parameters.check_enum_parameter(request.query.city, await services.get_distinct('city'), errors);
+			const region = parameters.check_enum_parameter(request.query.region, await services.get_distinct('region'), errors);
+
 
 			// Create the filters for every parameter available
 			let filters = [];
@@ -36,6 +39,8 @@ function createRouter(server) {
 			parameters.create_parameter(filters, 'pregnant', pregnant, 'equal');
 			parameters.create_parameter(filters, 'quarantined', quarantined, 'equal');
 			parameters.create_parameter(filters, 'status', status, 'equal');
+			parameters.create_parameter(filters, 'city', city, 'equal');
+			parameters.create_parameter(filters, 'region', region, 'equal');
 
 			// Filter the filters for keeping only those valid
 			filters = filters.filter(parameters.is_valid_parameter);
