@@ -1,12 +1,17 @@
 const constants = require('../libs/consts');
 
 module.exports = {
-	check_limit_parameter: parameter => {
-		return parameter ? module.exports.check_number_parameter(parameter, Number(process.env.CASES_LIMIT_GETTER)) : Number(process.env.CASES_LIMIT_GETTER);
+	check_limit_parameter: (parameter, errors) => {
+		return parameter ? module.exports.check_number_parameter(parameter, errors, Number(process.env.CASES_LIMIT_GETTER)) : Number(process.env.CASES_LIMIT_GETTER);
 	},
-	check_number_parameter: (parameter, default_parameter = constants.no_parameter_found) => {
+	check_number_parameter: (parameter, errors, default_parameter = constants.no_parameter_found) => {
 		return module.exports.check_parameter(parameter, parameter => {
-			return isNaN(parameter) ? default_parameter : Number(parameter);
+			if (isNaN(parameter)) {
+				errors[parameter] = 'This parameter is not a number.';
+				return default_parameter;
+			}
+
+			return Number(parameter);
 		});
 	},
 	check_boolean_parameter: (parameter, errors) => {

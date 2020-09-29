@@ -17,10 +17,10 @@ function createRouter(server) {
 		.set('/cases', 'GET', async (request, response, next) => {
 			const errors = {};
 			// Check the existence and parse the parameters
-			const limit = parameters.check_limit_parameter(request.query.limit);
-			const age_upper = parameters.check_number_parameter(request.query.age_upper);
-			const age_lower = parameters.check_number_parameter(request.query.age_lower);
-			const age = parameters.check_number_parameter(request.query.age);
+			const limit = parameters.check_limit_parameter(request.query.limit, errors);
+			const age_upper = parameters.check_number_parameter(request.query.age_upper, errors);
+			const age_lower = parameters.check_number_parameter(request.query.age_lower, errors);
+			const age = parameters.check_number_parameter(request.query.age, errors);
 			const sex = parameters.check_enum_parameter(request.query.sex, await services.get_distinct('sex'), errors);
 			const pregnant = parameters.check_boolean_parameter(request.query.pregnant, errors);
 			const quarantined = parameters.check_boolean_parameter(request.query.quarantined, errors);
