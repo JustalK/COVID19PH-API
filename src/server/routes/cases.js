@@ -95,7 +95,7 @@ function createRouter(server) {
 		.set('/cases/status/available', 'GET', async (request, response, next) => {
 			const datas = await services.get_distinct('status');
 			response.send(constants.SUCCESS_CODE, datas);
-		})
+		});
 }
 
 module.exports = createRouter;

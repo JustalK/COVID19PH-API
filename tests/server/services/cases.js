@@ -6,7 +6,7 @@ const dbs = {
 	create_many: datas => {
 		return datas;
 	},
-	getAll: (find, sort, limit) => {
+	get_all: (find, sort, limit) => {
 		return [find, sort, limit];
 	}
 };
@@ -23,7 +23,7 @@ test('[STATIC] Testing the services create model with perfect data', async t => 
 		date_result_positive: date,
 		date_recover: date,
 		date_died: date,
-		health_status: 'DIED',
+		status: 'DIED',
 		quarantined: false,
 		pregnant: false,
 		region: 'RIZAL',
@@ -37,7 +37,7 @@ test('[STATIC] Testing the services create model with perfect data', async t => 
 	t.is(a_case.date_result_positive, date);
 	t.is(a_case.date_recover, date);
 	t.is(a_case.date_died, date);
-	t.is(a_case.health_status, 'DIED');
+	t.is(a_case.status, 'DIED');
 	t.is(a_case.quarantined, false);
 	t.is(a_case.pregnant, false);
 	t.is(a_case.region, 'RIZAL');
@@ -161,7 +161,7 @@ test('[STATIC] Testing the create_data_from_row', async t => {
 	t.is(data.date_result_positive, date);
 	t.is(data.date_recover, date);
 	t.is(data.date_died, date);
-	t.is(data.health_status, 'DIED');
+	t.is(data.status, 'DIED');
 	t.is(data.quarantined, false);
 	t.is(data.pregnant, false);
 	t.is(data.region, 'RIZAL');

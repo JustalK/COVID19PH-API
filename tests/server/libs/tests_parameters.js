@@ -34,20 +34,24 @@ test('[STATIC] Testing the number check parameter with a string number', t => {
 });
 
 test('[STATIC] Testing the number check parameter with a bad argument', t => {
-	const number = m.check_number_parameter('dfd');
+	const errors = {};
+	const number = m.check_number_parameter('dfd', errors);
 	t.is(number, null);
-	const number_2 = m.check_number_parameter('abc');
+	t.not(errors.dfd, undefined);
+	const number_2 = m.check_number_parameter('abc', errors);
 	t.is(number_2, null);
-	const number_3 = m.check_number_parameter({});
+	t.not(errors.abc, undefined);
+	const number_3 = m.check_number_parameter({}, errors);
 	t.is(number_3, null);
 });
 
 test('[STATIC] Testing the number check parameter with a bad argument and default argument', t => {
-	const number = m.check_number_parameter('dfd', 12);
+	const errors = {};
+	const number = m.check_number_parameter('dfd', errors, 12);
 	t.is(number, 12);
-	const number_2 = m.check_number_parameter('abc', 150);
+	const number_2 = m.check_number_parameter('abc', errors, 150);
 	t.is(number_2, 150);
-	const number_3 = m.check_number_parameter({}, 1000);
+	const number_3 = m.check_number_parameter({}, errors, 1000);
 	t.is(number_3, 1000);
 });
 
@@ -76,29 +80,16 @@ test('[STATIC] Testing the boolean check parameter with a string false', t => {
 });
 
 test('[STATIC] Testing the boolean check parameter with a bad value', t => {
-	const parameter = m.check_boolean_parameter(10);
+	const errors = {};
+	const parameter = m.check_boolean_parameter(10, errors);
 	t.is(parameter, null);
-	const parameter_2 = m.check_boolean_parameter(-3);
+	t.not(errors[10], undefined);
+	const parameter_2 = m.check_boolean_parameter(-3, errors);
 	t.is(parameter_2, null);
-	const parameter_3 = m.check_boolean_parameter('656');
+	t.not(errors[-3], undefined);
+	const parameter_3 = m.check_boolean_parameter('656', errors);
 	t.is(parameter_3, null);
-});
-
-test('[STATIC] Testing the sex check parameter with a M', t => {
-	const parameter = m.check_sex_parameter('M');
-	t.is(parameter, 'M');
-});
-
-test('[STATIC] Testing the sex check parameter with a F', t => {
-	const parameter = m.check_sex_parameter('F');
-	t.is(parameter, 'F');
-});
-
-test('[STATIC] Testing the sex check parameter with a bad value', t => {
-	const parameter = m.check_sex_parameter('Z');
-	t.is(parameter, null);
-	const parameter_2 = m.check_sex_parameter('MF');
-	t.is(parameter_2, null);
+	t.not(errors['656'], undefined);
 });
 
 test('[STATIC] Testing the check parameter with a null argument', t => {

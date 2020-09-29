@@ -17,12 +17,12 @@ module.exports = {
 	check_date_parameter: (parameter, errors) => {
 		return module.exports.check_parameter(parameter, parameter => {
 			const date = new Date(parameter + ' 08:00:00');
-			if (!date instanceof Date && isNaN(date)) {
-				errors[parameter] = 'This parameter is not a date of the format : MM/DD/YYYY';
-				return constants.no_parameter_found;
+			if (date instanceof Date || !isNaN(date)) {
+				return date;
 			}
 
-			return date;
+			errors[parameter] = 'This parameter is not a date of the format : MM/DD/YYYY';
+			return constants.no_parameter_found;
 		});
 	},
 	check_boolean_parameter: (parameter, errors) => {
@@ -45,7 +45,7 @@ module.exports = {
 	check_enum_parameter: (parameter, enum_parameters, errors) => {
 		return module.exports.check_parameter(parameter, parameter => {
 			const parameter_enum = enum_parameters.find(value => value === parameter);
-			if(parameter_enum === undefined) {
+			if (parameter_enum === undefined) {
 				errors[parameter] = 'This parameter does not exist. The only possible values are : ' + enum_parameters.join(', ');
 			}
 
@@ -66,7 +66,7 @@ module.exports = {
 		}
 
 		if (parameter[2] === 'lower_upper') {
-			return parameter[1][0] !== null && parameter[1][1] !== null
+			return parameter[1][0] !== null && parameter[1][1] !== null;
 		}
 
 		return parameter[1] !== null;

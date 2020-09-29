@@ -69,7 +69,7 @@ module.exports = dbs => ({
 
 		return null;
 	},
-	get_distinct: async (field) => {
+	get_distinct: async field => {
 		const result = await dbs.get_distinct(field);
 		return result[0].rsl;
 	},

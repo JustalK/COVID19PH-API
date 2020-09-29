@@ -5,23 +5,23 @@ const model = require('../models/' + filename);
 const dbs = {
 	create: data => {
 		return model
-		.create(data);
+			.create(data);
 	},
 	create_many: datas => {
 		return model
-		.insertMany(datas);
+			.insertMany(datas);
 	},
-	remove_many: (find) => {
+	remove_many: find => {
 		return model
-		.deleteMany(find);
+			.deleteMany(find);
 	},
 	get_all: (find, sort, limit) => {
 		return model
-		.find(find)
-		.sort(sort)
-		.limit(limit);
+			.find(find)
+			.sort(sort)
+			.limit(limit);
 	},
-	get_distinct: (field) => {
+	get_distinct: field => {
 		return model.aggregate([
 			{
 				$group: {
@@ -31,10 +31,10 @@ const dbs = {
 			{
 				$group: {
 					_id: 'RESULT',
-					rsl: { $push : "$_id" }
+					rsl: {$push: '$_id'}
 				}
 			}
-		])
+		]);
 	}
 };
 
