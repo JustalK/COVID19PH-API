@@ -26,12 +26,6 @@ module.exports = {
 			return constants.no_parameter_found;
 		});
 	},
-	check_sex_parameter: parameter => {
-		return module.exports.check_parameter(parameter, parameter => {
-			const parameter_sex = constants.SEX_PARAMETERS.find(sex => sex === parameter);
-			return parameter_sex ? parameter_sex : constants.no_parameter_found;
-		});
-	},
 	check_enum_parameter: (parameter, enum_parameters, errors) => {
 		return module.exports.check_parameter(parameter, parameter => {
 			const parameter_enum = enum_parameters.find(value => value === parameter);
