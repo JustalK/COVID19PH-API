@@ -18,24 +18,24 @@ function createRouter(server) {
 			const errors = {};
 			// Check the existence and parse the parameters
 			const limit = parameters.check_limit_parameter(request.query.limit, errors);
+			const age = parameters.check_number_parameter(request.query.age, errors);
 			const age_upper = parameters.check_number_parameter(request.query.age_upper, errors);
 			const age_lower = parameters.check_number_parameter(request.query.age_lower, errors);
-			const age = parameters.check_number_parameter(request.query.age, errors);
 			const sex = parameters.check_enum_parameter(request.query.sex, await services.get_distinct('sex'), errors);
 			const pregnant = parameters.check_boolean_parameter(request.query.pregnant, errors);
 			const quarantined = parameters.check_boolean_parameter(request.query.quarantined, errors);
 			const status = parameters.check_enum_parameter(request.query.status, await services.get_distinct('status'), errors);
 			const city = parameters.check_enum_parameter(request.query.city, await services.get_distinct('city'), errors);
 			const region = parameters.check_enum_parameter(request.query.region, await services.get_distinct('region'), errors);
+			const date_start_case = parameters.check_date_parameter(request.query.date_start_case, errors);
 			const date_start_case_before = parameters.check_date_parameter(request.query.date_start_case_before, errors);
-
-			console.log(date_start_case_before);
+			const date_start_case_after = parameters.check_date_parameter(request.query.date_start_case_after, errors);
 
 			// Create the filters for every parameter available
 			let filters = [];
 			parameters.create_parameter(filters, 'age', [age_lower, age_upper], 'lower_upper');
-			parameters.create_parameter(filters, 'age', age_upper, 'lower');
 			parameters.create_parameter(filters, 'age', age_lower, 'upper');
+			parameters.create_parameter(filters, 'age', age_upper, 'lower');
 			parameters.create_parameter(filters, 'age', age, 'equal');
 			parameters.create_parameter(filters, 'sex', sex, 'equal');
 			parameters.create_parameter(filters, 'pregnant', pregnant, 'equal');
@@ -43,6 +43,10 @@ function createRouter(server) {
 			parameters.create_parameter(filters, 'status', status, 'equal');
 			parameters.create_parameter(filters, 'city', city, 'equal');
 			parameters.create_parameter(filters, 'region', region, 'equal');
+			parameters.create_parameter(filters, 'date_start_case', [date_start_case_after, date_start_case_before], 'lower_upper');
+			parameters.create_parameter(filters, 'date_start_case', date_start_case_before, 'upper');
+			parameters.create_parameter(filters, 'date_start_case', date_start_case_after, 'lower');
+			parameters.create_parameter(filters, 'date_start_case', date_start_case, 'equal');
 
 			// Filter the filters for keeping only those valid
 			filters = filters.filter(parameters.is_valid_parameter);

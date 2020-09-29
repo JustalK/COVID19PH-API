@@ -16,8 +16,8 @@ module.exports = {
 	},
 	check_date_parameter: (parameter, errors) => {
 		return module.exports.check_parameter(parameter, parameter => {
-			const date = new Date(parameter);
-			if (date instanceof Date && !isNaN(date)) {
+			const date = new Date(parameter + ' 08:00:00');
+			if (!date instanceof Date && isNaN(date)) {
 				errors[parameter] = 'This parameter is not a date of the format : MM/DD/YYYY';
 				return constants.no_parameter_found;
 			}
@@ -72,7 +72,7 @@ module.exports = {
 		return parameter[1] !== null;
 	},
 	create_parameter: (filters, key, value, mongoose_filter) => {
-		const find = filters.find(filter => filter[0] === key && filter[1] !== null && filter[2] === 'lower_upper');
+		const find = filters.find(filter => filter[0] === key && filter[1] !== null && filter[1][0] !== null && filter[1][1] !== null && filter[2] === 'lower_upper');
 		return find ? null : filters.push([key, value, mongoose_filter]);
 	},
 	create_mongoose_parameters: filter => {
