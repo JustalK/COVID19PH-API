@@ -9,7 +9,7 @@ module.exports = {
 			return isNaN(parameter) ? default_parameter : Number(parameter);
 		});
 	},
-	check_boolean_parameter: parameter => {
+	check_boolean_parameter: (parameter, errors) => {
 		return module.exports.check_parameter(parameter, parameter => {
 			parameter = parameter.toString();
 			const parameter_boolean_true = constants.TRUE_PARAMETERS.find(boolean => boolean === parameter.toUpperCase());
@@ -22,6 +22,7 @@ module.exports = {
 				return false;
 			}
 
+			errors[parameter] = 'This parameter does not exist. The only possible values are : ' + constants.TRUE_PARAMETERS.join(', ') + ' or ' + constants.FALSE_PARAMETERS.join(', ');
 			return constants.no_parameter_found;
 		});
 	},

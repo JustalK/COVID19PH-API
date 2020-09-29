@@ -22,8 +22,8 @@ function createRouter(server) {
 			const age_lower = parameters.check_number_parameter(request.query.age_lower);
 			const age = parameters.check_number_parameter(request.query.age);
 			const sex = parameters.check_enum_parameter(request.query.sex, await services.get_distinct('sex'), errors);
-			const pregnant = parameters.check_boolean_parameter(request.query.pregnant);
-			const quarantined = parameters.check_boolean_parameter(request.query.quarantined);
+			const pregnant = parameters.check_boolean_parameter(request.query.pregnant, errors);
+			const quarantined = parameters.check_boolean_parameter(request.query.quarantined, errors);
 			const status = parameters.check_enum_parameter(request.query.status, await services.get_distinct('status'), errors);
 			const city = parameters.check_enum_parameter(request.query.city, await services.get_distinct('city'), errors);
 			const region = parameters.check_enum_parameter(request.query.region, await services.get_distinct('region'), errors);
