@@ -73,4 +73,20 @@ const schema = new mongoose.Schema({
 	toObject: {virtuals: true}
 });
 
+schema.methods.toJSON = function() {
+    var obj = this.toObject();
+    delete obj.created_at;
+    delete obj.updated_at;
+    delete obj.__v;
+    delete obj._id;
+    delete obj.id;
+	// Clean the object from useless data
+	Object.keys(obj).map(key => {
+		if(obj[key] === null) {
+	    	delete obj[key];
+		}
+	})
+    return obj;
+}
+
 module.exports = mongoose.model(filename, schema);

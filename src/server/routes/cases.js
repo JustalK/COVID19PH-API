@@ -36,9 +36,6 @@ function createRouter(server) {
 			const date_result_positive = parameters.check_date_parameter(request.query.date_result_positive, errors);
 			const date_result_positive_before = parameters.check_date_parameter(request.query.date_result_positive_before, errors);
 			const date_result_positive_after = parameters.check_date_parameter(request.query.date_result_positive_after, errors);
-			const date_result_positive = parameters.check_date_parameter(request.query.date_result_positive, errors);
-			const date_result_positive_before = parameters.check_date_parameter(request.query.date_result_positive_before, errors);
-			const date_result_positive_after = parameters.check_date_parameter(request.query.date_result_positive_after, errors);
 			const date_recover = parameters.check_date_parameter(request.query.date_recover, errors);
 			const date_recover_before = parameters.check_date_parameter(request.query.date_recover_before, errors);
 			const date_recover_after = parameters.check_date_parameter(request.query.date_recover_after, errors);
