@@ -30,6 +30,21 @@ function createRouter(server) {
 			const date_start_case = parameters.check_date_parameter(request.query.date_start_case, errors);
 			const date_start_case_before = parameters.check_date_parameter(request.query.date_start_case_before, errors);
 			const date_start_case_after = parameters.check_date_parameter(request.query.date_start_case_after, errors);
+			const date_result_release = parameters.check_date_parameter(request.query.date_result_release, errors);
+			const date_result_release_before = parameters.check_date_parameter(request.query.date_result_release_before, errors);
+			const date_result_release_after = parameters.check_date_parameter(request.query.date_result_release_after, errors);
+			const date_result_positive = parameters.check_date_parameter(request.query.date_result_positive, errors);
+			const date_result_positive_before = parameters.check_date_parameter(request.query.date_result_positive_before, errors);
+			const date_result_positive_after = parameters.check_date_parameter(request.query.date_result_positive_after, errors);
+			const date_result_positive = parameters.check_date_parameter(request.query.date_result_positive, errors);
+			const date_result_positive_before = parameters.check_date_parameter(request.query.date_result_positive_before, errors);
+			const date_result_positive_after = parameters.check_date_parameter(request.query.date_result_positive_after, errors);
+			const date_recover = parameters.check_date_parameter(request.query.date_recover, errors);
+			const date_recover_before = parameters.check_date_parameter(request.query.date_recover_before, errors);
+			const date_recover_after = parameters.check_date_parameter(request.query.date_recover_after, errors);
+			const date_died = parameters.check_date_parameter(request.query.date_died, errors);
+			const date_died_before = parameters.check_date_parameter(request.query.date_died_before, errors);
+			const date_died_after = parameters.check_date_parameter(request.query.date_died_after, errors);
 
 			// Create the filters for every parameter available
 			let filters = [];
@@ -47,6 +62,22 @@ function createRouter(server) {
 			parameters.create_parameter(filters, 'date_start_case', date_start_case_before, 'upper');
 			parameters.create_parameter(filters, 'date_start_case', date_start_case_after, 'lower');
 			parameters.create_parameter(filters, 'date_start_case', date_start_case, 'equal');
+			parameters.create_parameter(filters, 'date_result_release', [date_result_release_after, date_result_release_before], 'lower_upper');
+			parameters.create_parameter(filters, 'date_result_release', date_result_release_before, 'upper');
+			parameters.create_parameter(filters, 'date_result_release', date_result_release_after, 'lower');
+			parameters.create_parameter(filters, 'date_result_release', date_result_release, 'equal');
+			parameters.create_parameter(filters, 'date_result_positive', [date_result_positive_after, date_result_positive_before], 'lower_upper');
+			parameters.create_parameter(filters, 'date_result_positive', date_result_positive_before, 'upper');
+			parameters.create_parameter(filters, 'date_result_positive', date_result_positive_after, 'lower');
+			parameters.create_parameter(filters, 'date_result_positive', date_result_positive, 'equal');
+			parameters.create_parameter(filters, 'date_recover', [date_recover_after, date_recover_before], 'lower_upper');
+			parameters.create_parameter(filters, 'date_recover', date_recover_before, 'upper');
+			parameters.create_parameter(filters, 'date_recover', date_recover_after, 'lower');
+			parameters.create_parameter(filters, 'date_recover', date_recover, 'equal');
+			parameters.create_parameter(filters, 'date_died', [date_died_after, date_died_before], 'lower_upper');
+			parameters.create_parameter(filters, 'date_died', date_died_before, 'upper');
+			parameters.create_parameter(filters, 'date_died', date_died_after, 'lower');
+			parameters.create_parameter(filters, 'date_died', date_died, 'equal');
 
 			// Filter the filters for keeping only those valid
 			filters = filters.filter(parameters.is_valid_parameter);
