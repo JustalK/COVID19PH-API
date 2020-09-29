@@ -62,6 +62,13 @@ module.exports = dbs => ({
 		const find = filter_mongoose.length === 0 ? {} : {$and: filter_mongoose};
 		return dbs.get_all(find, sort, limit);
 	},
+	get_model_keys: () => {
+		if (Model && Model.schema && Model.schema.obj) {
+			return Object.keys(Model.schema.obj);
+		}
+
+		return null;
+	},
 	get_distinct: async (field) => {
 		const result = await dbs.get_distinct(field);
 		return result[0].rsl;

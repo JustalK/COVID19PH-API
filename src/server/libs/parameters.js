@@ -75,6 +75,13 @@ module.exports = {
 		const find = filters.find(filter => filter[0] === key && filter[1] !== null && filter[1][0] !== null && filter[1][1] !== null && filter[2] === 'lower_upper');
 		return find ? null : filters.push([key, value, mongoose_filter]);
 	},
+	create_sort: (sort_key, sort_order) => {
+		if (sort_key === null || sort_order === null) {
+			return null;
+		}
+
+		return {[sort_key]: sort_order};
+	},
 	create_mongoose_parameters: filter => {
 		switch (filter[2]) {
 			case 'lower_upper':
