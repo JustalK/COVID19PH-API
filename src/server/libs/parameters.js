@@ -14,6 +14,17 @@ module.exports = {
 			return Number(parameter);
 		});
 	},
+	check_date_parameter: (parameter, errors) => {
+		return module.exports.check_parameter(parameter, parameter => {
+			const date = new Date(parameter);
+			if (date instanceof Date && !isNaN(date)) {
+				errors[parameter] = 'This parameter is not a date of the format : MM/DD/YYYY';
+				return constants.no_parameter_found;
+			}
+
+			return date;
+		});
+	},
 	check_boolean_parameter: (parameter, errors) => {
 		return module.exports.check_parameter(parameter, parameter => {
 			parameter = parameter.toString();

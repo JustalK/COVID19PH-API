@@ -59,7 +59,7 @@ module.exports = dbs => ({
 	},
 	get_all: async (filters, sort = null, limit = null) => {
 		const filter_mongoose = filters.map(parameters.create_mongoose_parameters);
-		const find = {$and: filter_mongoose};
+		const find = filter_mongoose.length === 0 ? {} : {$and: filter_mongoose};
 		return dbs.get_all(find, sort, limit);
 	},
 	get_distinct: async (field) => {

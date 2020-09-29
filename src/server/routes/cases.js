@@ -27,7 +27,9 @@ function createRouter(server) {
 			const status = parameters.check_enum_parameter(request.query.status, await services.get_distinct('status'), errors);
 			const city = parameters.check_enum_parameter(request.query.city, await services.get_distinct('city'), errors);
 			const region = parameters.check_enum_parameter(request.query.region, await services.get_distinct('region'), errors);
+			const date_start_case_before = parameters.check_date_parameter(request.query.date_start_case_before, errors);
 
+			console.log(date_start_case_before);
 
 			// Create the filters for every parameter available
 			let filters = [];
