@@ -1,13 +1,21 @@
+require('dotenv').config({path: './env/.env.' + process.env.NODE_ENV});
 const test = require('ava');
 const got = require('got');
 const m = require('../../../src/server/routes/cases');
-const m_server = require('../../../src/server/server');
+const m_index = require('../../../src/server/index');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+chai.use(chaiHttp);
 
-/*
-Test('[STATIC] Testing cases call', async t => {
-	Await m_server.start('my_api', 'localhost', 55555);
-	const response = await got('http://127.0.0.1:55555/cases?age_upper=30&age_lower=20');
+test('[STATIC] Testing cases call', async t => {
+	const server = await m_index.start();
 
-	console.log(response);
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases?age_upper=30&age_lower=20')
+			.end((err, response) => {
+				resolve(response.body);
+			});
+	});
+
+	t.is(true, true);
 });
-**/

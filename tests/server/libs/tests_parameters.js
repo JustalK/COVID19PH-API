@@ -1,3 +1,4 @@
+require('dotenv').config({path: './env/.env.' + process.env.NODE_ENV});
 const test = require('ava');
 const m = require('../../../src/server/libs/parameters');
 
