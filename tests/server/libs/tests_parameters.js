@@ -48,6 +48,18 @@ test('[STATIC] Testing the date check parameter with a wrong parameter', t => {
 	t.not(errors.abc, undefined);
 });
 
+test('[STATIC] Testing the enum check parameter with a good parameter', t => {
+	const errors = {};
+	const value = m.check_enum_parameter('M', ['F', 'M'], {});
+	t.is(value, 'M');
+});
+
+test('[STATIC] Testing the enum check parameter with a bad parameter', t => {
+	const errors = {};
+	const value = m.check_enum_parameter('Z', ['F', 'M'], errors);
+	t.not(errors.Z, undefined);
+});
+
 test('[STATIC] Testing the number check parameter with a bad argument', t => {
 	const errors = {};
 	const number = m.check_number_parameter('dfd', errors);
