@@ -11,7 +11,7 @@ function createRouter(server) {
 		.use(server)
 		.set('/cron/cases', 'GET', async (request, response, next) => {
 			await services.remove_all_cases();
-			await services.create_cases('datas/COVID_PH_CASE.csv');
+			await services.create_cases(process.env.CASES_CSV_PATH);
 			response.send(constants.SUCCESS_CODE, {});
 		})
 		.set('/cases', 'GET', async (request, response, next) => {
