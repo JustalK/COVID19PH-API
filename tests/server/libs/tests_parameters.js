@@ -1,3 +1,4 @@
+require('dotenv').config({path: './env/.env.' + process.env.NODE_ENV});
 const test = require('ava');
 const m = require('../../../src/server/libs/parameters');
 
@@ -12,7 +13,7 @@ test('[STATIC] Testing the limit check parameter with a number', t => {
 
 test('[STATIC] Testing the limit check parameter without an argument', t => {
 	const limit = m.check_limit_parameter(null);
-	t.is(limit, NaN);
+	t.is(limit, 1000);
 });
 
 test('[STATIC] Testing the number check parameter with a number', t => {
@@ -31,6 +32,32 @@ test('[STATIC] Testing the number check parameter with a string number', t => {
 	t.is(number_2, 56);
 	const number_3 = m.check_number_parameter('1');
 	t.is(number_3, 1);
+});
+
+test('[STATIC] Testing the date check parameter with a good parameter', t => {
+	const errors = {};
+	const date = m.check_date_parameter('12/02/1991', errors);
+	t.assert(date instanceof Date);
+	const date_2 = m.check_date_parameter('06/26/2020', errors);
+	t.assert(date_2 instanceof Date);
+});
+
+test('[STATIC] Testing the date check parameter with a wrong parameter', t => {
+	const errors = {};
+	const date = m.check_date_parameter('abc', errors);
+	t.not(errors.abc, undefined);
+});
+
+test('[STATIC] Testing the enum check parameter with a good parameter', t => {
+	const errors = {};
+	const value = m.check_enum_parameter('M', ['F', 'M'], {});
+	t.is(value, 'M');
+});
+
+test('[STATIC] Testing the enum check parameter with a bad parameter', t => {
+	const errors = {};
+	const value = m.check_enum_parameter('Z', ['F', 'M'], errors);
+	t.not(errors.Z, undefined);
 });
 
 test('[STATIC] Testing the number check parameter with a bad argument', t => {
@@ -114,6 +141,18 @@ test('[STATIC] Testing the is_valid_parameter with bad value', t => {
 test('[STATIC] Testing the is_valid_parameter with not well formated array', t => {
 	const parameter = m.is_valid_parameter(['age', '0']);
 	t.is(parameter, false);
+});
+
+test('[STATIC] Testing the create sort with a good parameter', t => {
+	const sort = m.create_sort('my_key', '-1');
+	t.is(sort.my_key, '-1');
+});
+
+test('[STATIC] Testing the create sort with a bad parameter', t => {
+	const sort = m.create_sort('my_key', null);
+	t.is(sort, null);
+	const sort_2 = m.create_sort(null, '-1');
+	t.is(sort_2, null);
 });
 
 test('[STATIC] Testing the create_mongoose_parameters upper', t => {

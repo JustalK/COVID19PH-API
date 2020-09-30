@@ -63,11 +63,7 @@ module.exports = dbs => ({
 		return dbs.get_all(find, sort, limit);
 	},
 	get_model_keys: () => {
-		if (Model && Model.schema && Model.schema.obj) {
-			return Object.keys(Model.schema.obj);
-		}
-
-		return null;
+		return Object.keys(Model.schema.obj);
 	},
 	get_distinct: async field => {
 		const result = await dbs.get_distinct(field);

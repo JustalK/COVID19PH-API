@@ -18,7 +18,7 @@ module.exports = {
 
 			server.listen(port, host, () => {
 				console.log('%s listening at %s', server.name, server.url);
-				resolve(true);
+				resolve(server);
 			});
 		});
 	}
