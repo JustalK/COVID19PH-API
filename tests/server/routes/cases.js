@@ -2,7 +2,7 @@ require('dotenv').config({path: './env/.env.' + process.env.NODE_ENV});
 const test = require('ava');
 const got = require('got');
 const m = require('../../../src/server/routes/cases');
-const m_index = require('../../../src/server/index');
+const m_index = require('../../../src/server');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 let server;
 
 test.before(async () => {
-	 server = await m_index.start();
+	server = await m_index.start();
 });
 
 test.serial('[STATIC] Testing the cron that remove the actual cases and add the new data from the csv', async t => {
@@ -158,4 +158,18 @@ test('[STATIC] Testing cases call get all with pregnant and quarantined and age 
 	t.is(response.status, 200);
 	const datas = response.body;
 	t.is(datas.length, 0);
+});
+
+test('[STATIC] Testing cases call get all with cities available', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases/cities/available')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.is(datas[0], 'CAINTA');
+	t.is(datas[1], 'MANILA');
 });

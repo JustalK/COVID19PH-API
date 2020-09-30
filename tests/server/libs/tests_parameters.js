@@ -13,7 +13,7 @@ test('[STATIC] Testing the limit check parameter with a number', t => {
 
 test('[STATIC] Testing the limit check parameter without an argument', t => {
 	const limit = m.check_limit_parameter(null);
-	t.is(limit, NaN);
+	t.is(limit, 1000);
 });
 
 test('[STATIC] Testing the number check parameter with a number', t => {
