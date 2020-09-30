@@ -160,6 +160,19 @@ test('[STATIC] Testing cases call get all with pregnant and quarantined and age 
 	t.is(datas.length, 0);
 });
 
+test('[STATIC] Testing cases call get all with a parameter error', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases?age=a')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.not(datas.a, undefined);
+});
+
 test('[STATIC] Testing cases call get all with cities available', async t => {
 	const response = await new Promise((resolve, reject) => {
 		chai.request(server).get('/cases/cities/available')
@@ -185,4 +198,18 @@ test('[STATIC] Testing cases call get all with regions available', async t => {
 	t.is(response.status, 200);
 	const datas = response.body;
 	t.is(datas[0], 'RIZAL');
+});
+
+test('[STATIC] Testing cases call get all with status available', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases/status/available')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.is(datas[0], 'RECOVERED');
+	t.is(datas[1], 'DIED');
 });

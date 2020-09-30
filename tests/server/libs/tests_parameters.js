@@ -34,6 +34,20 @@ test('[STATIC] Testing the number check parameter with a string number', t => {
 	t.is(number_3, 1);
 });
 
+test('[STATIC] Testing the date check parameter with a good parameter', t => {
+	const errors = {};
+	const date = m.check_date_parameter('12/02/1991', errors);
+	t.assert(date instanceof Date);
+	const date_2 = m.check_date_parameter('06/26/2020', errors);
+	t.assert(date_2 instanceof Date);
+});
+
+test('[STATIC] Testing the date check parameter with a wrong parameter', t => {
+	const errors = {};
+	const date = m.check_date_parameter('abc', errors);
+	t.not(errors.abc, undefined);
+});
+
 test('[STATIC] Testing the number check parameter with a bad argument', t => {
 	const errors = {};
 	const number = m.check_number_parameter('dfd', errors);

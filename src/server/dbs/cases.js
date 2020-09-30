@@ -3,10 +3,6 @@ const filename = path.basename(__filename, '.js');
 const model = require('../models/' + filename);
 
 const dbs = {
-	create: data => {
-		return model
-			.create(data);
-	},
 	create_many: datas => {
 		return model
 			.insertMany(datas);
