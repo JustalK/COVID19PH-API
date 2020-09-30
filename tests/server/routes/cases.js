@@ -173,3 +173,16 @@ test('[STATIC] Testing cases call get all with cities available', async t => {
 	t.is(datas[0], 'CAINTA');
 	t.is(datas[1], 'MANILA');
 });
+
+test('[STATIC] Testing cases call get all with regions available', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases/regions/available')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.is(datas[0], 'RIZAL');
+});
