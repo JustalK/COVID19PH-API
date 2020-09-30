@@ -143,6 +143,18 @@ test('[STATIC] Testing the is_valid_parameter with not well formated array', t =
 	t.is(parameter, false);
 });
 
+test('[STATIC] Testing the create sort with a good parameter', t => {
+	const sort = m.create_sort('my_key', '-1');
+	t.is(sort.my_key, '-1');
+});
+
+test('[STATIC] Testing the create sort with a bad parameter', t => {
+	const sort = m.create_sort('my_key', null);
+	t.is(sort, null);
+	const sort_2 = m.create_sort(null, '-1');
+	t.is(sort_2, null);
+});
+
 test('[STATIC] Testing the create_mongoose_parameters upper', t => {
 	const parameter = m.create_mongoose_parameters(['age', 0, 'upper']);
 	t.is(parameter.age.$lte, 0);
