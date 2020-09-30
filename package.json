@@ -7,7 +7,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "server": "node src/server/index",
+    "server": "node -e 'require(\"./src/server/index\").start()'",
     "test": "xo --fix && nyc --reporter=html --reporter=text ava --verbose --timeout=1m",
     "test-no": "cross-env NODE_ENV=test ava tests/*.js tests/*/*.js tests/*/*/*.js --verbose --timeout=1m",
     "test-p": "cross-env NODE_ENV=test ava tests/server/routes/cases.js --verbose --timeout=1m",

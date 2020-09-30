@@ -6,11 +6,38 @@ const services = require('../services/' + filename)(dbs);
 const parameters = require('../libs/parameters');
 const constants = require('../libs/consts');
 
+const google = require('../libs/google');
+const pdf = require('../libs/pdf');
+const utils = require('../libs/utils');
+
 function createRouter(server) {
 	routes
 		.use(server)
 		.set('/cron/cases', 'GET', async (request, response, next) => {
+
+			const doh_data_update_redirect_link = await utils.get_the_follow_link(constants.doh_data_update_link);
+			console.log(doh_data_update_redirect_link);
+			const doh_data_update_folder_ID = google.get_folder_ID(doh_data_update_redirect_link);
+			console.log(doh_data_update_folder_ID);
+			const doh_data_update_files_in_directory = await google.read_files_in_directory(doh_data_update_folder_ID);
+			console.log(doh_data_update_files_in_directory);
+			const doh_data_update_file_ID = doh_data_update_files_in_directory[0].id;
+			const doh_source = await google.download_file(doh_data_update_file_ID, 'datas/DOH_source.pdf');
+			const doh_folder_link = await pdf.get_DOH_folder_link(doh_source);
+			console.log(doh_folder_link);
+			const doh_folder_redirect_link = await utils.get_the_follow_link(doh_folder_link);
+			console.log(doh_folder_redirect_link);
+			const doh_folder_ID = google.get_folder_ID(doh_folder_redirect_link);
+			console.log(doh_folder_ID);
+			const files_in_directory = await google.read_files_in_directory(doh_folder_ID);
+			console.log(files_in_directory);
+			const covid_case_file = utils.get_covid_case_file(files_in_directory);
+			console.log(covid_case_file);
+			const doh_case_file_ID = covid_case_file.id;
+			console.log(doh_case_file_ID);
+			const cases = await google.download_file(doh_case_file_ID, process.env.CASES_CSV_PATH);
 			await services.remove_all_cases();
+			console.log('ALL CASES REMOVED');
 			await services.create_cases(process.env.CASES_CSV_PATH);
 			response.send(constants.SUCCESS_CODE, {});
 		})
