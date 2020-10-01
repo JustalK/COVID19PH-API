@@ -46,6 +46,9 @@ module.exports = dbs => ({
 		const last_cluster_index = clusters.length - 1;
 		const size_last_cluster = clusters[last_cluster_index].length;
 		if (size_last_cluster >= size_cluster) {
+			console.log('Number of cluster :' + clusters.length);
+			console.log('New clusters :' + size_last_cluster);
+			console.log('Cases :' + size_last_cluster*clusters.length);
 			const new_cluster = [a_case];
 			clusters.push(new_cluster);
 		} else {
@@ -55,7 +58,10 @@ module.exports = dbs => ({
 		return clusters;
 	},
 	cluster_create_many: async clusters => {
-		return Promise.all(clusters.map(module.exports(dbs).create_many));
+		for(const cluster of clusters) {
+			console.log('saving');
+			await module.exports(dbs).create_many(cluster);
+		}
 	},
 	get_all: async (filters, sort = null, limit = null) => {
 		const filter_mongoose = filters.map(parameters.create_mongoose_parameters);
@@ -83,6 +89,7 @@ module.exports = dbs => ({
 					const a_case = module.exports(dbs).create_model(data);
 					clusters = module.exports(dbs).create_cluster(clusters, a_case, constants.CLUSTER_LIMIT);
 					count++;
+					//console.log(count);
 				})
 				.on('end', async () => {
 					await module.exports(dbs).cluster_create_many(clusters);
