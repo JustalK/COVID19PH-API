@@ -40,9 +40,9 @@ function createRouter(server) {
 			const doh_case_file_ID = covid_case_file.id;
 			console.log(doh_case_file_ID);
 			const cases = await google.download_file(doh_case_file_ID, process.env.CASES_CSV_PATH);
+			**/
 			await services.remove_all_cases();
 			console.log('ALL CASES REMOVED');
-			**/
 			await services.create_cases(process.env.CASES_CSV_PATH);
 			response.send(constants.SUCCESS_CODE, {});
 		})

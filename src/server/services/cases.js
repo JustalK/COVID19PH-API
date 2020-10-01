@@ -34,25 +34,24 @@ module.exports = dbs => ({
 	create_many: async data => {
 		return dbs.create_many(data);
 	},
-	create_cluster: (clusters, a_case, size_cluster) => {
+	create_cluster: async (clusters, a_case, size_cluster) => {
 		if (!a_case || !clusters) {
 			return null;
 		}
 
 		if (!Array.isArray(clusters) || clusters.length === 0) {
-			clusters = [[]];
+			clusters = [];
 		}
 
-		const last_cluster_index = clusters.length - 1;
-		const size_last_cluster = clusters[last_cluster_index].length;
+		const size_last_cluster = clusters.length;
 		if (size_last_cluster >= size_cluster) {
-			console.log('Number of cluster :' + clusters.length);
 			console.log('New clusters :' + size_last_cluster);
-			console.log('Cases :' + size_last_cluster*clusters.length);
-			const new_cluster = [a_case];
-			clusters.push(new_cluster);
+			clusters.push(a_case);
+			await module.exports(dbs).create_many(clusters);
+			clusters = [];
+			//clusters.push(new_cluster);
 		} else {
-			clusters[last_cluster_index].push(a_case);
+			clusters.push(a_case);
 		}
 
 		return clusters;
@@ -82,17 +81,21 @@ module.exports = dbs => ({
 		return new Promise((resolve, reject) => {
 			let clusters = [];
 			let count = 0;
-			fs.createReadStream(csv_path)
+			const stream = fs.createReadStream(csv_path)
 				.pipe(csv())
-				.on('data', row => {
-					const data = module.exports(dbs).create_data_from_row(row);
-					const a_case = module.exports(dbs).create_model(data);
-					clusters = module.exports(dbs).create_cluster(clusters, a_case, constants.CLUSTER_LIMIT);
-					count++;
+				.on('data', async row => {
+					try {
+						stream.pause();
+						const data = module.exports(dbs).create_data_from_row(row);
+						const a_case = module.exports(dbs).create_model(data);
+						clusters = await module.exports(dbs).create_cluster(clusters, a_case, constants.CLUSTER_LIMIT);
+						count++;
+					} finally {
+						stream.resume();
+					}
 					//console.log(count);
 				})
 				.on('end', async () => {
-					await module.exports(dbs).cluster_create_many(clusters);
 					resolve({number_clusters: clusters.length, number_cases: count, first_clusters: clusters[0]});
 				});
 		});
