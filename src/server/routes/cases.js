@@ -13,8 +13,12 @@ const utils = require('../libs/utils');
 function createRouter(server) {
 	routes
 		.use(server)
+		.set('/', 'GET', async (request, response, next) => {
+			const app = {name: 'COVID19 PH', status: 'running'};
+			response.send(constants.SUCCESS_CODE, app);
+		})
 		.set('/cron/cases', 'GET', async (request, response, next) => {
-
+			/**
 			const doh_data_update_redirect_link = await utils.get_the_follow_link(constants.doh_data_update_link);
 			console.log(doh_data_update_redirect_link);
 			const doh_data_update_folder_ID = google.get_folder_ID(doh_data_update_redirect_link);
@@ -38,6 +42,7 @@ function createRouter(server) {
 			const cases = await google.download_file(doh_case_file_ID, process.env.CASES_CSV_PATH);
 			await services.remove_all_cases();
 			console.log('ALL CASES REMOVED');
+			**/
 			await services.create_cases(process.env.CASES_CSV_PATH);
 			response.send(constants.SUCCESS_CODE, {});
 		})
