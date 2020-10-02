@@ -6,6 +6,7 @@ const fs = require('fs');
 const scopes = ['https://www.googleapis.com/auth/drive'];
 const auth = new google.auth.JWT(credentials.client_email, null, credentials.private_key, scopes);
 const drive = google.drive({version: 'v3', auth});
+const logs = require('./logs');
 
 module.exports = {
 	get_folder_ID: url => {
@@ -22,7 +23,7 @@ module.exports = {
 			data.on('end', () => {
 				resolve(file_destination);
 			}).on('error', error => {
-				console.log('Error during download', error);
+				logs.info('Error during download', error);
 				reject(error);
 			}).pipe(destination);
 		});

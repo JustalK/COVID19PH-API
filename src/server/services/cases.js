@@ -6,6 +6,7 @@ const constants = require('../libs/consts');
 
 const fs = require('fs');
 const csv = require('csv-parser');
+const logs = require('../libs/logs');
 
 module.exports = dbs => ({
 	create_data_from_row: row => {
@@ -45,22 +46,15 @@ module.exports = dbs => ({
 
 		const size_last_cluster = clusters.length;
 		if (size_last_cluster >= size_cluster) {
-			console.log('New clusters :' + size_last_cluster);
+			logs.info('Saving new cases :' + size_last_cluster);
 			clusters.push(a_case);
 			await module.exports(dbs).create_many(clusters);
 			clusters = [];
-			//clusters.push(new_cluster);
 		} else {
 			clusters.push(a_case);
 		}
 
 		return clusters;
-	},
-	cluster_create_many: async clusters => {
-		for(const cluster of clusters) {
-			console.log('saving');
-			await module.exports(dbs).create_many(cluster);
-		}
 	},
 	get_all: async (filters, sort = null, limit = null) => {
 		const filter_mongoose = filters.map(parameters.create_mongoose_parameters);
@@ -93,9 +87,9 @@ module.exports = dbs => ({
 					} finally {
 						stream.resume();
 					}
-					//console.log(count);
 				})
 				.on('end', async () => {
+					logs.info('Total new cases saved :' + count);
 					resolve({number_clusters: clusters.length, number_cases: count, first_clusters: clusters[0]});
 				});
 		});

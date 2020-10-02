@@ -1,4 +1,5 @@
 const restify = require('restify');
+const logs = require('./libs/logs');
 
 module.exports = {
 	create_server: name => {
@@ -17,7 +18,7 @@ module.exports = {
 			module.exports.adding_route('cases', server);
 
 			server.listen(port, host, () => {
-				console.log('%s listening at %s', server.name, server.url);
+				logs.info('%s listening at %s', server.name, server.url);
 				resolve(server);
 			});
 		});
