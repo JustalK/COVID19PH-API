@@ -11,22 +11,78 @@
 
 ![Star the project](https://img.shields.io/github/stars/justalk/covid19ph-api?style=social)
 
-API for COVID 19 Cases in the Philippines
+API for COVID 19 Cases in the Philippines from DOH last update. Get all the informations about the cases in the Philippines in a JSON. A running live version of the system is available here : [Live Version](http://13.250.29.32:5000/cases)
 
-### Features
+## Features
 
 - **DOH data download:** Download the latest datas from DOH
 
 - **Powerfull API:** Complete API for the covid in Philippines
 
-### How is it working
+## API
+
+
+| method | url | description | example |
+| :--- | :---- | :---------- | :------ |
+| GET | /cases | Return the list of all cases | [Live Version](http://13.250.29.32:5000/cases) |
+| GET | /cases/cities/available | Return the list of all cities affected | [Live Version](http://13.250.29.32:5000/cases/cities/available) |
+| GET | /cases/regions/available | Return the list of all region affected | [Live Version](http://13.250.29.32:5000/cases/regions/available) |
+| GET | /cases/status/available | Return the list of all status possible | [Live Version](http://13.250.29.32:5000/cases/status/available) |
+
+
+<details>
+  <summary><b>Get all the cases of covid parameters</b> (click to show)</summary>
+
+| params | type | description | example |
+| :--- | :---- | :---------- | :------ |
+| limit | number | the limit of the result | [Live Version](http://13.250.29.32:5000/cases?limit=1) |
+| sort_key | number | the key use for sorting the result (can only work if sort_order is also defined) | [Live Version](http://13.250.29.32:5000/cases?sort_key=age&sort_order=1) |
+| sort_order | number | the order of the result : 1 for ascending or -1 for descending (can only work if sort_key is also defined) | [Live Version](http://13.250.29.32:5000/cases?sort_key=age&sort_order=1) |
+| age | number | the exact age of the cases | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| age_upper | number | All the cases with an age lower than this value | [Live Version](http://13.250.29.32:5000/cases?age_upper=30) |
+| age_lower | number | All the cases with an age higher than this calue | [Live Version](http://13.250.29.32:5000/cases?age_lower=15) |
+| sex | string | All the cases with a certain sex : 'M' or 'F' | [Live Version](http://13.250.29.32:5000/cases?sex=F) |
+| pregnant | boolean | All the cases pregnant : true or false | [Live Version](http://13.250.29.32:5000/cases?pregnant=true) |
+| quarantined | boolean | All the cases quarantined : true or false | [Live Version](http://13.250.29.32:5000/cases?quarantined=true) |
+| status | string | All the cases with the same status : [List of status available](http://13.250.29.32:5000/cases/status/available) | [Live Version](http://13.250.29.32:5000/status=died) |
+| city | string | All the cases in the same city : [List of city available](http://13.250.29.32:5000/cases/cities/available) | [Live Version](http://13.250.29.32:5000/cases?city=basista) |
+| region | string | All the cases in the same region : [List of region available](http://13.250.29.32:5000/cases/regions/available) | [Live Version](http://13.250.29.32:5000/cases?region=caraga) |
+| date_start_case | date (format: MM/DD/YYYY) | All the cases started at an exact date | [Live Version](http://13.250.29.32:5000/cases?date_start_case=05/06/2020) |
+| date_start_case_before | date (format: MM/DD/YYYY) | All the cases started before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_start_case_after | date (format: MM/DD/YYYY) | All the cases started after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_result_release | date (format: MM/DD/YYYY) | All the cases with the result released at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_result_release_before | date (format: MM/DD/YYYY) | All the cases with the result released before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_result_release_after | date (format: MM/DD/YYYY) | All the cases with the result released after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_result_positive | date (format: MM/DD/YYYY) | All the cases with a positive result at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_result_positive_before | date (format: MM/DD/YYYY) | All the cases with a positive result before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_result_positive_after | date (format: MM/DD/YYYY) | All the cases with a positive result after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_recover | date (format: MM/DD/YYYY) | All the cases who recover at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_recover_before | date (format: MM/DD/YYYY) | All the cases who recover before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_recover_after | date (format: MM/DD/YYYY) | All the cases who recover after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_died | date (format: MM/DD/YYYY) | All the cases who died at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_died_before | date (format: MM/DD/YYYY) | All the cases who died before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_died_after | date (format: MM/DD/YYYY) | All the cases who recover after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+
+</details>
+<details>
+  <summary><b>Additionnals informations</b> (click to show)</summary>
+
+* The live version has a limit of 1000 cases showing by default. The limit can be change to higher value by setting the value parameter.
+* The sort_key and sort_order has to be use together for working.
+* The parameters can be mixed together for mixing your particular query.
+* The datas are updated every week.
+* Some datas fields can be empty because the datas from DOH are let with empty field.
+
+</details>
+
+## How is it working
 
 1. Download the notice PDF from DOH
 2. Parse the file for finding the link of the google drive
 3. Download the csv files from the google drive
 4. Fill up the database used by the API
 
-### How to install
+## How to install
 
 1. Cloning the repository
 

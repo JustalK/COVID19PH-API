@@ -63,76 +63,35 @@ test('[STATIC] Testing the services get_all dbs', async t => {
 	t.is(prepare_query[0].$and[1].sex.$eq, 'M');
 });
 
-test('[STATIC] Testing the cluster_create_many', async t => {
-	const date = new Date();
-	const clusters = await m.cluster_create_many([[{
-		case_code: 'CL1C123C',
-		age: 22,
-		sex: 'M',
-		date_start_case: date,
-		date_result_release: date,
-		date_result_positive: date,
-		date_recover: date,
-		date_died: date,
-		health_status: 'DIED',
-		quarantined: false,
-		pregnant: false,
-		region: 'RIZAL',
-		city: 'ANTIPOLO'
-	}], [{
-		case_code: 'CL2C123C',
-		age: 22,
-		sex: 'M',
-		date_start_case: date,
-		date_result_release: date,
-		date_result_positive: date,
-		date_recover: date,
-		date_died: date,
-		health_status: 'DIED',
-		quarantined: false,
-		pregnant: false,
-		region: 'RIZAL',
-		city: 'ANTIPOLO'
-	}]]);
+test('[STATIC] Testing the create_cluster', async t => {
+	let clusters = await m.create_cluster([], {case_code: 'JSDJ65461'}, 2);
+	t.is(clusters.length, 1);
+	t.is(clusters[0].case_code, 'JSDJ65461');
+	clusters = await m.create_cluster(clusters, {case_code: 'JSDDSFKL546'}, 2);
 	t.is(clusters.length, 2);
-	t.is(clusters[0][0].case_code, 'CL1C123C');
-	t.is(clusters[1][0].case_code, 'CL2C123C');
+	t.is(clusters[0].case_code, 'JSDJ65461');
+	t.is(clusters[1].case_code, 'JSDDSFKL546');
+	clusters = await m.create_cluster(clusters, {case_code: 'SDDVD56465'}, 2);
+	t.is(clusters.length, 0);
+	clusters = await m.create_cluster(clusters, {case_code: 'SDDVD8465'}, 2);
+	t.is(clusters.length, 1);
+	t.is(clusters[0].case_code, 'SDDVD8465');
 });
 
-test('[STATIC] Testing the create_cluster', t => {
-	let clusters = m.create_cluster([], {case_code: 'JSDJ65461'}, 2);
-	t.is(clusters.length, 1);
-	t.is(clusters[0].length, 1);
-	t.is(clusters[0][0].case_code, 'JSDJ65461');
-	clusters = m.create_cluster(clusters, {case_code: 'JSDDSFKL546'}, 2);
-	t.is(clusters.length, 1);
-	t.is(clusters[0].length, 2);
-	t.is(clusters[0][0].case_code, 'JSDJ65461');
-	t.is(clusters[0][1].case_code, 'JSDDSFKL546');
-	clusters = m.create_cluster(clusters, {case_code: 'SDDVD56465'}, 2);
-	t.is(clusters.length, 2);
-	t.is(clusters[0].length, 2);
-	t.is(clusters[1].length, 1);
-	t.is(clusters[0][0].case_code, 'JSDJ65461');
-	t.is(clusters[0][1].case_code, 'JSDDSFKL546');
-	t.is(clusters[1][0].case_code, 'SDDVD56465');
-});
-
-test('[STATIC] Testing the create_cluster with error on first parameter', t => {
-	const clusters = m.create_cluster(null, {case_code: 'JSDJ65461'});
+test('[STATIC] Testing the create_cluster with error on first parameter', async t => {
+	const clusters = await m.create_cluster(null, {case_code: 'JSDJ65461'});
 	t.is(clusters, null);
 });
 
-test('[STATIC] Testing the create_cluster with error on second parameter', t => {
-	const clusters = m.create_cluster([], null);
+test('[STATIC] Testing the create_cluster with error on second parameter', async t => {
+	const clusters = await m.create_cluster([], null);
 	t.is(clusters, null);
 });
 
-test('[STATIC] Testing the create_cluster with first parameter not array', t => {
-	const clusters = m.create_cluster('aaa', {case_code: 'JS51651'});
+test('[STATIC] Testing the create_cluster with first parameter not array', async t => {
+	const clusters = await m.create_cluster('aaa', {case_code: 'JS51651'});
 	t.is(clusters.length, 1);
-	t.is(clusters[0].length, 1);
-	t.is(clusters[0][0].case_code, 'JS51651');
+	t.is(clusters[0].case_code, 'JS51651');
 });
 
 test('[STATIC] Testing the create_data_from_row', async t => {
@@ -170,15 +129,14 @@ test('[STATIC] Testing the create_data_from_row', async t => {
 
 test('[STATIC] Testing the create_cases', async t => {
 	const clusters = await m.create_cases('tests/datas/TEST_COVID19.csv');
-	t.is(clusters.number_clusters, 1);
 	t.is(clusters.number_cases, 3);
-	t.is(clusters.first_clusters[0].case_code, 'VFDV6655');
-	t.is(clusters.first_clusters[0].age, 22);
-	t.is(clusters.first_clusters[0].sex, 'M');
-	t.is(clusters.first_clusters[1].case_code, 'VF54564');
-	t.is(clusters.first_clusters[1].age, 23);
-	t.is(clusters.first_clusters[1].sex, 'M');
-	t.is(clusters.first_clusters[2].case_code, 'SD6555');
-	t.is(clusters.first_clusters[2].age, 18);
-	t.is(clusters.first_clusters[2].sex, 'F');
+	t.is(clusters.last_clusters[0].case_code, 'VFDV6655');
+	t.is(clusters.last_clusters[0].age, 22);
+	t.is(clusters.last_clusters[0].sex, 'M');
+	t.is(clusters.last_clusters[1].case_code, 'VF54564');
+	t.is(clusters.last_clusters[1].age, 23);
+	t.is(clusters.last_clusters[1].sex, 'M');
+	t.is(clusters.last_clusters[2].case_code, 'SD6555');
+	t.is(clusters.last_clusters[2].age, 18);
+	t.is(clusters.last_clusters[2].sex, 'F');
 });

@@ -7,7 +7,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-	"start": "node -e 'require(\"./src/server/index\").start()'",
+    "start": "node -e 'require(\"./src/server/index\").start()'",
     "server": "node -e 'require(\"./src/server/index\").start()'",
     "test": "xo --fix && nyc --reporter=html --reporter=text ava --verbose --timeout=1m",
     "test-no": "cross-env NODE_ENV=test ava tests/*.js tests/*/*.js tests/*/*/*.js --verbose --timeout=1m",
@@ -32,17 +32,16 @@
     "ava": "^3.12.1",
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
-    "nock": "^13.0.4",
     "nyc": "^15.1.0",
-    "xo": "^0.33.1"
+    "xo": "^0.33.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0"
   },
   "bugs": {
     "url": "https://github.com/JustalK/COVID19PH-API/issues"
   },
   "homepage": "https://github.com/JustalK/COVID19PH-API#readme",
   "dependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
     "csv-parser": "^2.3.3",
     "dotenv": "^8.2.0",
     "follow-redirects": "^1.13.0",
@@ -51,8 +50,8 @@
     "mongo-uri-builder": "^3.2.2",
     "mongoose": "^5.10.6",
     "pdf-parse": "^1.1.1",
-    "pdf2json": "^1.2.0",
     "restify": "^8.5.1",
-    "restify-route": "0.0.6"
+    "restify-route": "0.0.6",
+    "winston": "^3.3.3"
   }
 }
