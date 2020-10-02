@@ -24,6 +24,20 @@ test.serial('[STATIC] Testing the cron that remove the actual cases and add the 
 	t.is(response.status, 200);
 });
 
+test('[STATIC] Testing the checker of the api', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.is(datas.name, 'COVID19-PH');
+	t.is(datas.status, 'RUNNING');
+});
+
 test('[STATIC] Testing cases call get all without argument', async t => {
 	const response = await new Promise((resolve, reject) => {
 		chai.request(server).get('/cases?limit=3')
@@ -77,6 +91,33 @@ test('[STATIC] Testing cases call get all without argument', async t => {
 	t.is(datas[2].pregnant, true);
 	t.is(datas[2].region, 'RIZAL');
 	t.is(datas[2].city, 'CAINTA');
+});
+
+test('[STATIC] Testing cases call get all with a skip', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases?skip=2')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.is(datas.length, 1);
+	// Third cases after skipping two
+	t.is(datas[0].case_code, 'SD6555');
+	t.is(datas[0].age, 18);
+	t.is(datas[0].sex, 'F');
+	t.not(datas[0].date_start_case, undefined);
+	t.not(datas[0].date_result_release, undefined);
+	t.not(datas[0].date_result_positive, undefined);
+	t.not(datas[0].date_recover, undefined);
+	t.is(datas[0].date_died, undefined);
+	t.is(datas[0].status, 'RECOVERED');
+	t.is(datas[0].quarantined, true);
+	t.is(datas[0].pregnant, true);
+	t.is(datas[0].region, 'RIZAL');
+	t.is(datas[0].city, 'CAINTA');
 });
 
 test('[STATIC] Testing cases call get all with age parameter', async t => {
@@ -171,6 +212,19 @@ test('[STATIC] Testing cases call get all with a parameter error', async t => {
 	t.is(response.status, 200);
 	const datas = response.body;
 	t.not(datas.a, undefined);
+});
+
+test('[STATIC] Testing counting all cases', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases/total')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.is(datas.total_cases, 3);
 });
 
 test('[STATIC] Testing cases call get all with cities available', async t => {

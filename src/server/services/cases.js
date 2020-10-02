@@ -56,10 +56,13 @@ module.exports = dbs => ({
 
 		return clusters;
 	},
-	get_all: async (filters, sort = null, limit = null) => {
+	get_all: async (filters, sort = null, limit = null, skip = null) => {
 		const filter_mongoose = filters.map(parameters.create_mongoose_parameters);
 		const find = filter_mongoose.length === 0 ? {} : {$and: filter_mongoose};
-		return dbs.get_all(find, sort, limit);
+		return dbs.get_all(find, sort, limit, skip);
+	},
+	count_total_cases: async () => {
+		return dbs.count({});
 	},
 	get_model_keys: () => {
 		return Object.keys(Model.schema.obj);

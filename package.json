@@ -4,7 +4,7 @@
   "description": "API for COVID 19 Cases in the Philippines",
   "main": "src/index.js",
   "engines": {
-    "node": ">=12"
+    "node": ">=12.0"
   },
   "scripts": {
     "start": "node -e 'require(\"./src/server/index\").start()'",

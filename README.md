@@ -23,26 +23,32 @@ API for COVID 19 Cases in the Philippines from DOH last update. Get all the info
 
 ## API
 
-
 | method | url | description | example |
 | :--- | :---- | :---------- | :------ |
 | GET | /cases | Return the list of all cases | [Live Version](http://13.250.29.32:5000/cases) |
+| GET | /cases/total | Return the total number of cases in Philippines | [Live Version](http://13.250.29.32:5000/cases/total) |
 | GET | /cases/cities/available | Return the list of all cities affected | [Live Version](http://13.250.29.32:5000/cases/cities/available) |
 | GET | /cases/regions/available | Return the list of all region affected | [Live Version](http://13.250.29.32:5000/cases/regions/available) |
 | GET | /cases/status/available | Return the list of all status possible | [Live Version](http://13.250.29.32:5000/cases/status/available) |
 
-
 <details>
-  <summary><b>Get all the cases of covid parameters</b> (click to show)</summary>
+  <summary><b>List of all the parameters available for /cases</b> (click to show)</summary>
+
+The parameter are query parameter. They can be chain as the example under :
+
+```
+http://13.250.29.32:5000/cases?limit=1&age_lower=20&status=RECOVERED
+```
 
 | params | type | description | example |
 | :--- | :---- | :---------- | :------ |
 | limit | number | the limit of the result | [Live Version](http://13.250.29.32:5000/cases?limit=1) |
+| skip | number | skip a number of result | [Live Version](http://13.250.29.32:5000/cases?skip=100) |
 | sort_key | number | the key use for sorting the result (can only work if sort_order is also defined) | [Live Version](http://13.250.29.32:5000/cases?sort_key=age&sort_order=1) |
 | sort_order | number | the order of the result : 1 for ascending or -1 for descending (can only work if sort_key is also defined) | [Live Version](http://13.250.29.32:5000/cases?sort_key=age&sort_order=1) |
 | age | number | the exact age of the cases | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| age_upper | number | All the cases with an age lower than this value | [Live Version](http://13.250.29.32:5000/cases?age_upper=30) |
-| age_lower | number | All the cases with an age higher than this calue | [Live Version](http://13.250.29.32:5000/cases?age_lower=15) |
+| age_upper | number | Upper limit for age | [Live Version](http://13.250.29.32:5000/cases?age_upper=30) |
+| age_lower | number | Lower limit for age | [Live Version](http://13.250.29.32:5000/cases?age_lower=15) |
 | sex | string | All the cases with a certain sex : 'M' or 'F' | [Live Version](http://13.250.29.32:5000/cases?sex=F) |
 | pregnant | boolean | All the cases pregnant : true or false | [Live Version](http://13.250.29.32:5000/cases?pregnant=true) |
 | quarantined | boolean | All the cases quarantined : true or false | [Live Version](http://13.250.29.32:5000/cases?quarantined=true) |
@@ -168,3 +174,7 @@ DB_PASS_LOG=
 5. Activate on the google console the google drive API
 
 </details>
+
+## License
+
+MIT - Copyright &copy; [JUSTAL Kevin](https://teamkd.online/)
