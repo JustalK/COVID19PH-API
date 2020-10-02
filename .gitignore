@@ -4,6 +4,8 @@
 # Datas
 datas/*.xlsx
 datas/*.csv
+datas/*.csv
+tests/datas/TEST_COVID_PH_CASE.csv
 
 # NYX
 .nyc_output
