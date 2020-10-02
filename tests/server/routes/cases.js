@@ -200,6 +200,19 @@ test('[STATIC] Testing cases call get all with a parameter error', async t => {
 	t.not(datas.a, undefined);
 });
 
+test('[STATIC] Testing counting all cases', async t => {
+	const response = await new Promise((resolve, reject) => {
+		chai.request(server).get('/cases/total')
+			.end((err, response) => {
+				resolve(response);
+			});
+	});
+
+	t.is(response.status, 200);
+	const datas = response.body;
+	t.is(datas.total_cases, 3);
+});
+
 test('[STATIC] Testing cases call get all with cities available', async t => {
 	const response = await new Promise((resolve, reject) => {
 		chai.request(server).get('/cases/cities/available')

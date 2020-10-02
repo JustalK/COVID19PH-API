@@ -61,6 +61,9 @@ module.exports = dbs => ({
 		const find = filter_mongoose.length === 0 ? {} : {$and: filter_mongoose};
 		return dbs.get_all(find, sort, limit, skip);
 	},
+	count_total_cases: async () => {
+		return dbs.count({});
+	},
 	get_model_keys: () => {
 		return Object.keys(Model.schema.obj);
 	},

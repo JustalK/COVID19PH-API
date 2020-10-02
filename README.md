@@ -27,6 +27,7 @@ API for COVID 19 Cases in the Philippines from DOH last update. Get all the info
 | method | url | description | example |
 | :--- | :---- | :---------- | :------ |
 | GET | /cases | Return the list of all cases | [Live Version](http://13.250.29.32:5000/cases) |
+| GET | /cases/total | Return the total number of cases in Philippines | [Live Version](http://13.250.29.32:5000/cases/total) |
 | GET | /cases/cities/available | Return the list of all cities affected | [Live Version](http://13.250.29.32:5000/cases/cities/available) |
 | GET | /cases/regions/available | Return the list of all region affected | [Live Version](http://13.250.29.32:5000/cases/regions/available) |
 | GET | /cases/status/available | Return the list of all status possible | [Live Version](http://13.250.29.32:5000/cases/status/available) |
@@ -38,6 +39,7 @@ API for COVID 19 Cases in the Philippines from DOH last update. Get all the info
 | params | type | description | example |
 | :--- | :---- | :---------- | :------ |
 | limit | number | the limit of the result | [Live Version](http://13.250.29.32:5000/cases?limit=1) |
+| skip | number | skip a number of result | [Live Version](http://13.250.29.32:5000/cases?skip=100) |
 | sort_key | number | the key use for sorting the result (can only work if sort_order is also defined) | [Live Version](http://13.250.29.32:5000/cases?sort_key=age&sort_order=1) |
 | sort_order | number | the order of the result : 1 for ascending or -1 for descending (can only work if sort_key is also defined) | [Live Version](http://13.250.29.32:5000/cases?sort_key=age&sort_order=1) |
 | age | number | the exact age of the cases | [Live Version](http://13.250.29.32:5000/cases?age=20) |

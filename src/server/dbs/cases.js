@@ -18,6 +18,10 @@ const dbs = {
 			.skip(skip)
 			.limit(limit);
 	},
+	count: (find) => {
+		return model
+			.estimatedDocumentCount(find);
+	},
 	get_distinct: field => {
 		return model.aggregate([
 			{

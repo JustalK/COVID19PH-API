@@ -119,6 +119,10 @@ function createRouter(server) {
 			const datas = Object.keys(errors).length === 0 ? await services.get_all(filters, sort, limit, skip) : errors;
 			response.send(constants.SUCCESS_CODE, datas);
 		})
+		.set('/cases/total', 'GET', async (request, response, next) => {
+			const total = await services.count_total_cases();
+			response.send(constants.SUCCESS_CODE, {total_cases: total});
+		})
 		.set('/cases/cities/available', 'GET', async (request, response, next) => {
 			const datas = await services.get_distinct('city');
 			response.send(constants.SUCCESS_CODE, datas);
