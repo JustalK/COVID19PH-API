@@ -11,10 +11,11 @@ const dbs = {
 		return model
 			.deleteMany(find);
 	},
-	get_all: (find, sort, limit) => {
+	get_all: (find, sort, limit, skip) => {
 		return model
 			.find(find)
 			.sort(sort)
+			.skip(skip)
 			.limit(limit);
 	},
 	get_distinct: field => {

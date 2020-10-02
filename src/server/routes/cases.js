@@ -52,6 +52,7 @@ function createRouter(server) {
 			const errors = {};
 			// Check the existence and parse the parameters
 			const limit = parameters.check_limit_parameter(request.query.limit, errors);
+			const skip = parameters.check_number_parameter(request.query.skip, errors);
 			const sort_key = parameters.check_enum_parameter(request.query.sort, await services.get_model_keys(), errors);
 			const sort_order = parameters.check_enum_parameter(request.query.order, ['-1', '1'], errors);
 			const age = parameters.check_number_parameter(request.query.age, errors);
@@ -115,7 +116,7 @@ function createRouter(server) {
 			// Filter the filters for keeping only those valid
 			filters = filters.filter(parameters.is_valid_parameter);
 			const sort = parameters.create_sort(sort_key, sort_order);
-			const datas = Object.keys(errors).length === 0 ? await services.get_all(filters, sort, limit) : errors;
+			const datas = Object.keys(errors).length === 0 ? await services.get_all(filters, sort, limit, skip) : errors;
 			response.send(constants.SUCCESS_CODE, datas);
 		})
 		.set('/cases/cities/available', 'GET', async (request, response, next) => {
