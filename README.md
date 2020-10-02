@@ -168,3 +168,7 @@ DB_PASS_LOG=
 5. Activate on the google console the google drive API
 
 </details>
+
+## License
+
+MIT - Copyright &copy; [JUSTAL Kevin](https://teamkd.online/)
