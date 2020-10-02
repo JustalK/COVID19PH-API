@@ -89,8 +89,9 @@ module.exports = dbs => ({
 					}
 				})
 				.on('end', async () => {
+					await module.exports(dbs).create_many(clusters);
 					logs.info('Total new cases saved :' + count);
-					resolve({number_clusters: clusters.length, number_cases: count, first_clusters: clusters[0]});
+					resolve({number_cases: count, last_clusters: clusters});
 				});
 		});
 	}

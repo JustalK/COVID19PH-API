@@ -32,11 +32,10 @@
     "ava": "^3.12.1",
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
-    "nock": "^13.0.4",
     "nyc": "^15.1.0",
     "xo": "^0.33.1",
     "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
+    "chai-http": "^4.3.0"
   },
   "bugs": {
     "url": "https://github.com/JustalK/COVID19PH-API/issues"

@@ -27,7 +27,7 @@ function createRouter(server) {
 			const doh_data_update_files_in_directory = await google.read_files_in_directory(doh_data_update_folder_ID);
 			logs.info(doh_data_update_files_in_directory);
 			const doh_data_update_file_ID = doh_data_update_files_in_directory[0].id;
-			const doh_source = await google.download_file(doh_data_update_file_ID, 'datas/DOH_source.pdf');
+			const doh_source = await google.download_file(doh_data_update_file_ID, process.env.CASES_CSV_PATH);
 			const doh_folder_link = await pdf.get_DOH_folder_link(doh_source);
 			logs.info(doh_folder_link);
 			const doh_folder_redirect_link = await utils.get_the_follow_link(doh_folder_link);
@@ -44,7 +44,7 @@ function createRouter(server) {
 			logs.info('Starting to remove all the cases');
 			await services.remove_all_cases();
 			logs.info('All cases has been removed');
-			await services.create_cases(process.env.CASES_CSV_PATH);
+			await services.create_cases(process.env.CREATE_CASES_CSV_PATH);
 			logs.info('All cases has been created');
 			response.send(constants.SUCCESS_CODE, {});
 		})
