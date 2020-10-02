@@ -15,7 +15,7 @@ function createRouter(server) {
 	routes
 		.use(server)
 		.set('/', 'GET', async (request, response, next) => {
-			const app = {name: 'COVID19 PH', status: 'running'};
+			const app = {name: process.env.API_NAME, status: 'RUNNING'};
 			response.send(constants.SUCCESS_CODE, app);
 		})
 		.set('/cron/cases', 'GET', async (request, response, next) => {

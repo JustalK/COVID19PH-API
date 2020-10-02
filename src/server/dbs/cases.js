@@ -18,7 +18,7 @@ const dbs = {
 			.skip(skip)
 			.limit(limit);
 	},
-	count: (find) => {
+	count: find => {
 		return model
 			.estimatedDocumentCount(find);
 	},
