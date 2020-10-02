@@ -15,9 +15,11 @@ API for COVID 19 Cases in the Philippines from DOH last update. Get all the info
 
 ## Features
 
-- **DOH data download:** Download the latest datas from DOH
+- **DOH data download:** Download automatically the latest datas from DOH
 
-- **Powerfull API:** Complete API for the covid in Philippines
+- **Powerfull API:** Complete and fast API for the covid in Philippines
+
+- **Flexible API:** With many parameter, it's easy to build your application around it
 
 ## API
 
@@ -48,20 +50,20 @@ API for COVID 19 Cases in the Philippines from DOH last update. Get all the info
 | city | string | All the cases in the same city : [List of city available](http://13.250.29.32:5000/cases/cities/available) | [Live Version](http://13.250.29.32:5000/cases?city=basista) |
 | region | string | All the cases in the same region : [List of region available](http://13.250.29.32:5000/cases/regions/available) | [Live Version](http://13.250.29.32:5000/cases?region=caraga) |
 | date_start_case | date (format: MM/DD/YYYY) | All the cases started at an exact date | [Live Version](http://13.250.29.32:5000/cases?date_start_case=05/06/2020) |
-| date_start_case_before | date (format: MM/DD/YYYY) | All the cases started before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_start_case_after | date (format: MM/DD/YYYY) | All the cases started after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_result_release | date (format: MM/DD/YYYY) | All the cases with the result released at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_result_release_before | date (format: MM/DD/YYYY) | All the cases with the result released before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_result_release_after | date (format: MM/DD/YYYY) | All the cases with the result released after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_result_positive | date (format: MM/DD/YYYY) | All the cases with a positive result at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_result_positive_before | date (format: MM/DD/YYYY) | All the cases with a positive result before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_result_positive_after | date (format: MM/DD/YYYY) | All the cases with a positive result after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_recover | date (format: MM/DD/YYYY) | All the cases who recover at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_recover_before | date (format: MM/DD/YYYY) | All the cases who recover before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_recover_after | date (format: MM/DD/YYYY) | All the cases who recover after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_died | date (format: MM/DD/YYYY) | All the cases who died at an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_died_before | date (format: MM/DD/YYYY) | All the cases who died before an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
-| date_died_after | date (format: MM/DD/YYYY) | All the cases who recover after an exact date | [Live Version](http://13.250.29.32:5000/cases?age=20) |
+| date_start_case_before | date (format: MM/DD/YYYY) | All the cases started before an exact date | [Live Version](http://13.250.29.32:5000/cases?date_start_case_after=05/06/2020) |
+| date_start_case_after | date (format: MM/DD/YYYY) | All the cases started after an exact date | [Live Version](http://13.250.29.32:5000/cases?date_start_case_before=05/06/2020) |
+| date_result_release | date (format: MM/DD/YYYY) | All the cases with the result released at an exact date | [Live Version](http://13.250.29.32:5000/cases?date_result_release=08/26/2020) |
+| date_result_release_before | date (format: MM/DD/YYYY) | All the cases with the result released before an exact date | [Live Version](http://13.250.29.32:5000/cases?date_result_release_before=08/26/2020) |
+| date_result_release_after | date (format: MM/DD/YYYY) | All the cases with the result released after an exact date | [Live Version](http://13.250.29.32:5000/cases?date_result_release_after=08/26/2020) |
+| date_result_positive | date (format: MM/DD/YYYY) | All the cases with a positive result at an exact date | [Live Version](http://13.250.29.32:5000/cases?date_result_positive=08/26/2020) |
+| date_result_positive_before | date (format: MM/DD/YYYY) | All the cases with a positive result before an exact date | [Live Version](http://13.250.29.32:5000/cases?date_result_positive_before=08/26/2020) |
+| date_result_positive_after | date (format: MM/DD/YYYY) | All the cases with a positive result after an exact date | [Live Version](http://13.250.29.32:5000/cases?date_result_positive_after=08/26/2020) |
+| date_recover | date (format: MM/DD/YYYY) | All the cases who recover at an exact date | [Live Version](http://13.250.29.32:5000/cases?date_recover=08/26/2020) |
+| date_recover_before | date (format: MM/DD/YYYY) | All the cases who recover before an exact date | [Live Version](http://13.250.29.32:5000/cases?date_recover_before=08/26/2020) |
+| date_recover_after | date (format: MM/DD/YYYY) | All the cases who recover after an exact date | [Live Version](http://13.250.29.32:5000/cases?date_recover_after=08/26/2020) |
+| date_died | date (format: MM/DD/YYYY) | All the cases who died at an exact date | [Live Version](http://13.250.29.32:5000/cases?date_died=08/26/2020) |
+| date_died_before | date (format: MM/DD/YYYY) | All the cases who died before an exact date | [Live Version](http://13.250.29.32:5000/cases?date_died_before=08/26/2020) |
+| date_died_after | date (format: MM/DD/YYYY) | All the cases who recover after an exact date | [Live Version](http://13.250.29.32:5000/cases?date_died_after=08/26/2020) |
 
 </details>
 <details>
@@ -75,14 +77,30 @@ API for COVID 19 Cases in the Philippines from DOH last update. Get all the info
 
 </details>
 
-## How is it working
+## How does it work ?
 
-1. Download the notice PDF from DOH
-2. Parse the file for finding the link of the google drive
-3. Download the csv files from the google drive
+<details>
+  <summary><b>Few explanation on the cron job</b> (click to show)</summary>
+
+1. Download the notice PDF from DOH : http://bit.ly/DataDropPH
+2. Parse the file for finding the link of the google drive where the datas are uploaded
+3. Download the csv file with the data
 4. Fill up the database used by the API
 
-## How to install
+</details>
+<details>
+  <summary><b>Few explanation on the API</b> (click to show)</summary>
+
+1. The api first check what is the parameter send and if it's a valid parameter (libs)
+2. The api then build the filter that gonna be use by mongodb (services)
+3. The api then return the result (dbs)
+
+</details>
+
+## How to install the development version ?
+
+<details>
+  <summary><b>Steps with informations</b> (click to show)</summary>
 
 1. Cloning the repository
 
@@ -148,3 +166,5 @@ DB_PASS_LOG=
 ```
 
 5. Activate on the google console the google drive API
+
+</details>

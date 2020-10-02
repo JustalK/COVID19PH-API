@@ -16,7 +16,7 @@ module.exports = {
 	},
 	check_date_parameter: (parameter, errors) => {
 		return module.exports.check_parameter(parameter, parameter => {
-			const date = new Date(parameter + ' 08:00:00');
+			const date = new Date(parameter + ' 00:00:00');
 			if (date instanceof Date && !isNaN(date.getTime())) {
 				return date;
 			}
