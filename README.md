@@ -11,7 +11,7 @@
 
 ![Star the project](https://img.shields.io/github/stars/justalk/covid19ph-api?style=social)
 
-API for COVID 19 Cases in the Philippines from DOH last update. Get all the informations about the cases in the Philippines in a JSON. A running live version of the system is available here : [Live Version](http://13.250.29.32:5000/cases)
+API for COVID 19 Cases in the Philippines from DOH last update. Get all the informations about the cases in the Philippines in a JSON format. A running live version of the system is available here : [Live Version](http://13.250.29.32:5000/cases)
 
 ## Features
 
