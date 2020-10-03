@@ -1,6 +1,6 @@
 {
   "name": "@justalk/covid19ph-api",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "API for COVID 19 Cases in the Philippines",
   "main": "src/index.js",
   "engines": {
@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "node -e 'require(\"./src/server/index\").start()'",
-    "server": "node -e 'require(\"./src/server/index\").start()'",
-    "test": "xo --fix && nyc --reporter=html --reporter=text ava --verbose --timeout=1m",
+    "server": "secrethub read --out-file ./secrets/credentials.json justalk/COVID19PH-API/credentials  && secrethub run -- node -e 'require(\"./src/server/index\").start()'",
+    "test": "secrethub read --out-file ./secrets/credentials.json justalk/COVID19PH-API/credentials  && xo --fix && nyc --reporter=html --reporter=text ava --verbose --timeout=1m",
     "test-no": "cross-env NODE_ENV=test ava tests/*.js tests/*/*.js tests/*/*/*.js --verbose --timeout=1m",
     "test-p": "cross-env NODE_ENV=test ava tests/server/routes/cases.js --verbose --timeout=1m",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
@@ -29,13 +29,14 @@
   "author": "Justal K.",
   "license": "MIT",
   "devDependencies": {
+    "@secrethub/cli": "^0.41.2",
     "ava": "^3.12.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
     "nyc": "^15.1.0",
-    "xo": "^0.33.1",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0"
+    "xo": "^0.33.1"
   },
   "bugs": {
     "url": "https://github.com/JustalK/COVID19PH-API/issues"
