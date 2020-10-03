@@ -1,6 +1,8 @@
 # Logs
 *.log
 
+secrets/*
+
 # Datas
 datas/*.xlsx
 datas/*.csv
