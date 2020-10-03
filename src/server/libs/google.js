@@ -1,7 +1,7 @@
 const got = require('got');
 const DATAS_SOURCE = 'datas/DOH_source.pdf';
 const {google} = require('googleapis');
-const credentials = process.env.CREDENTIALS;
+const credentials = require('../../../secrets/credentials.json');
 const fs = require('fs');
 const scopes = ['https://www.googleapis.com/auth/drive'];
 const auth = new google.auth.JWT(credentials.client_email, null, credentials.private_key, scopes);
