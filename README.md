@@ -88,6 +88,13 @@ http://13.250.29.32:5000/cases?limit=1&age_lower=20&status=RECOVERED
 <details>
   <summary><b>Few explanation on the cron job</b> (click to show)</summary>
 
+The cron has been set in the crontab with this setting :
+
+```
+crontab -e
+0 0 * * * curl http://0.0.0.0:5000/cron/cases
+```
+
 1. Download the notice PDF from DOH : http://bit.ly/DataDropPH
 2. Parse the file for finding the link of the google drive where the datas are uploaded
 3. Download the csv file with the data
