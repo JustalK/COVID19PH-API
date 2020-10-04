@@ -171,6 +171,8 @@ DB_PASS_LOG=
 }
 ```
 
+For not sending the key to everyone, I am using the secrethub, so the file is not present inside the repository.
+
 5. Activate on the google console the google drive API
 
 </details>
