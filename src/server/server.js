@@ -18,7 +18,7 @@ module.exports = {
 			module.exports.adding_route('cases', server);
 
 			server.listen(port, host, () => {
-				logs.info('%s listening at %s', server.name, server.url);
+				logs.info(server.name + ' listening at ' + server.url);
 				resolve(server);
 			});
 		});
