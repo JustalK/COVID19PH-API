@@ -1,4 +1,4 @@
-# COVID19PH-API
+![Alt text](imgs/covid19PH-api.jpg?raw=true "PORTFOLIO-PORTFOLIO")
 
 ![Last version npm](https://img.shields.io/npm/v/@justalk/covid19ph-api.svg?style=flat-square)
 ![Last version](https://img.shields.io/github/v/tag/justalk/covid19ph-api.svg?style=flat-square)
